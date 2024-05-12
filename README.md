@@ -59,4 +59,4 @@ git push -u origin <nama_branch>
 
 1. Authentikasi - Meutia Dewi Putri Kartika ✅
 2. Lihat Profil - Rendi Kurniawan ✅
-3. Ubah Kata Sandi - Faiz Al-Dzikro
+3. Ubah Kata Sandi - Faiz Al-Dzikro ✅

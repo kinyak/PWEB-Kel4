@@ -57,6 +57,6 @@ git push -u origin <nama_branch>
 
 ## Pembagian Tugas
 
-1. Authentikasi - Meutia Dewi Putri Kartika
+1. Authentikasi - Meutia Dewi Putri Kartika ✅
 2. Lihat Profil - Rendi Kurniawan ✅
 3. Ubah Kata Sandi - Faiz Al-Dzikro

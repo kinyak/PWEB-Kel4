@@ -111,4 +111,6 @@ module.exports = {
   logout,
   getProfile,
   changePassword
+  getProfile,
+
 };

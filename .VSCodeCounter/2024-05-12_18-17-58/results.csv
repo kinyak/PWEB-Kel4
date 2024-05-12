@@ -1,0 +1,31 @@
+"filename", "language", "Properties", "HTML", "JSON", "JavaScript", "Markdown", "PostCSS", "comment", "blank", "total"
+"e:\PWEB COY\Pweb-re\.env", "Properties", 1, 0, 0, 0, 0, 0, 0, 3, 4
+"e:\PWEB COY\Pweb-re\README.md", "Markdown", 0, 0, 0, 0, 44, 0, 0, 21, 65
+"e:\PWEB COY\Pweb-re\app.js", "JavaScript", 0, 0, 0, 31, 0, 0, 12, 23, 66
+"e:\PWEB COY\Pweb-re\config\config.json", "JSON", 0, 0, 24, 0, 0, 0, 0, 1, 25
+"e:\PWEB COY\Pweb-re\controller\auth.controller.js", "JavaScript", 0, 0, 0, 83, 0, 0, 6, 26, 115
+"e:\PWEB COY\Pweb-re\middleware\islogin.middleware.js", "JavaScript", 0, 0, 0, 26, 0, 0, 0, 6, 32
+"e:\PWEB COY\Pweb-re\middleware\verifytoken.middleware.js", "JavaScript", 0, 0, 0, 17, 0, 0, 1, 8, 26
+"e:\PWEB COY\Pweb-re\migrations\20240509062404-create-admin.js", "JavaScript", 0, 0, 0, 34, 0, 0, 1, 0, 35
+"e:\PWEB COY\Pweb-re\migrations\20240509062404-create-alumni.js", "JavaScript", 0, 0, 0, 63, 0, 0, 1, 1, 65
+"e:\PWEB COY\Pweb-re\models\admin.js", "JavaScript", 0, 0, 0, 23, 0, 0, 6, 2, 31
+"e:\PWEB COY\Pweb-re\models\alumni.js", "JavaScript", 0, 0, 0, 35, 0, 0, 6, 2, 43
+"e:\PWEB COY\Pweb-re\models\index.js", "JavaScript", 0, 0, 0, 37, 0, 0, 0, 7, 44
+"e:\PWEB COY\Pweb-re\package-lock.json", "JSON", 0, 0, 4434, 0, 0, 0, 0, 1, 4435
+"e:\PWEB COY\Pweb-re\package.json", "JSON", 0, 0, 32, 0, 0, 0, 0, 1, 33
+"e:\PWEB COY\Pweb-re\public\javascripts\tes.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 1, 1
+"e:\PWEB COY\Pweb-re\public\stylesheets\style.css", "PostCSS", 0, 0, 0, 0, 0, 3, 0, 0, 3
+"e:\PWEB COY\Pweb-re\routes\admin.route.js", "JavaScript", 0, 0, 0, 17, 0, 0, 0, 11, 28
+"e:\PWEB COY\Pweb-re\routes\alumni.route.js", "JavaScript", 0, 0, 0, 13, 0, 0, 2, 8, 23
+"e:\PWEB COY\Pweb-re\routes\auth.route.js", "JavaScript", 0, 0, 0, 9, 0, 0, 0, 10, 19
+"e:\PWEB COY\Pweb-re\routes\index.js", "JavaScript", 0, 0, 0, 9, 0, 0, 2, 2, 13
+"e:\PWEB COY\Pweb-re\routes\users.js", "JavaScript", 0, 0, 0, 11, 0, 0, 3, 4, 18
+"e:\PWEB COY\Pweb-re\seeders\20240509062840-demo-user.js", "JavaScript", 0, 0, 0, 60, 0, 0, 1, 4, 65
+"e:\PWEB COY\Pweb-re\src\input.css", "PostCSS", 0, 0, 0, 0, 0, 3, 0, 0, 3
+"e:\PWEB COY\Pweb-re\tailwind.config.js", "JavaScript", 0, 0, 0, 24, 0, 0, 0, 5, 29
+"e:\PWEB COY\Pweb-re\views\alumni\home.ejs", "HTML", 0, 14, 0, 0, 0, 0, 0, 2, 16
+"e:\PWEB COY\Pweb-re\views\error.ejs", "HTML", 0, 3, 0, 0, 0, 0, 0, 1, 4
+"e:\PWEB COY\Pweb-re\views\index.ejs", "HTML", 0, 10, 0, 0, 0, 0, 0, 1, 11
+"e:\PWEB COY\Pweb-re\views\notfound.ejs", "HTML", 0, 29, 0, 0, 0, 0, 0, 3, 32
+"e:\PWEB COY\Pweb-re\views\profile.ejs", "HTML", 0, 1153, 0, 0, 0, 0, 12, 17, 1182
+"Total", "-", 1, 1209, 4490, 492, 44, 6, 53, 171, 6466

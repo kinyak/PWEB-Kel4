@@ -1,29 +1,62 @@
-# PWEB-Kel4
+# Web Pengelolaan Data Alumni
 
+## Panduan Penggunaan
 
+1. **Clone repo ini**
 
+```bash
+git clone https://github.com/kinyak/PWEB-Kel4
+```
 
-## Pembagian Fungsional
-Meutia Dewi Putri Kartika:
+2. **Install semua depedensi yang diperlukan**
 
-1. Admin dapat melakukan Manajemen Perbaikan Aset dan Laporan Perbaikan -> Halaman Perbaikan
-2. Admin dapat melakukan Manajemen Aset (Tambah, Ubah, Hapus, Detail) -> Halaman Manajemen Aset
-3. Admin dapat melakukan Upload File (Untuk mengunggah gambar/dokumen terkait aset) -> Halaman Upload Aset
-4. Admin dapat melakukan Generate File PDF (Untuk mencetak daftar aset dan surat permohonan peminjaman aset dalam format PDF)
-5. Admin dapat memanfaatkan Realtime Communication (Notifikasi ketika ada perubahan data aset)
+```bash
+npm install
+```
 
-Faiz Al-Dzikro:
+3. **Hidupkan MySQL XAMPP dan buat database & setting koneksi db pada config/config.json**
 
-1. Admin dapat melakukan Manajemen Kategori Aset (Tambah, Ubah, Hapus) -> Halaman Kategori Aset
-2. Admin dapat melakukan Pencarian Aset (Berdasarkan kategori, lokasi, atau kata kunci)
-3. Admin dapat melakukan Manajemen Pengembalian Aset serta Keterangan Kondisi Aset -> Halaman Pengembalian Aset
-4. Admin dapat melakukan Manajemen Peminjaman Aset (Tambah, Ubah, Hapus, Detail) -> Halaman Peminjaman Aset
-5. Admin dapat melakukan Generate File PDF (Untuk mencetak laporan peminjaman aset dan Surat Permohonan Perbaikan Aset dalam format PDF)
+```json
+"development": {
+  "username": "root",
+  "password": null,
+  "database": "alumnifti",
+  "host": "localhost",
+  "port" : 3307,
+  "dialect": "mysql"
+}
+```
 
-Rendi Kurniawan:
+4. **Lakukan migrasi tabel dari Express ke MySQL**
 
-1. Admin dapat melakukan Manajemen Perawatan Aset (Tambah, Ubah, Hapus, Detail)-> Halaman Perawatan Aset
-2. Admin dapat melakukan pengelolaan Kalender Perawatan Aset dan Jadwal Piket Asisten Labor -> Kalender Perawatan Aset
-3. Admin dapat melakukan Generate File Image (Untuk mencetak label atau kode aset dalam format gambar) serta Generate Surat Permohonan Pengadaan Barang terhadap barang rusak/hilang atau dibutuhkan.
-4. Admin dapat melihat Statistik dan Laporan (Jumlah aset, aset yang sering dipinjam, dll) -> Halaman Dashboard dan Laporan
-5. Admin dapat melakukan pengadaan barang kepada departemen  serta status pengadaan barang (generate surat permohonan pengadaan barang)->Halaman Pengadaan Barang
+```bash
+npx sequelize-cli db:migrate
+```
+
+5. **Jalankan seeder untuk mengirim data contoh ke database**
+
+```bash
+npx sequelize-cli db:seed:all
+```
+
+6. **Jalankan Express dengan perintah**
+
+```bash
+npm run dev # untuk pengembangan
+npm run start # untuk menjalankan sekali
+```
+
+7. **Untuk push perubahan silahkan buatlah branch baru terlebih dahulu**
+
+```bash
+git checkout <nama_branch>
+git add .
+git commit -m "lihat profil"
+git push -u origin <nama_branch>
+```
+
+## Pembagian Tugas
+
+1. Authentikasi - Meutia Dewi Putri Kartika
+2. Lihat Profil - Rendi Kurniawan ✅
+3. Ubah Kata Sandi - Faiz Al-Dzikro

@@ -1,27 +1,28 @@
 var express = require('express');
 var router = express.Router();
-const verifyToken = require ('../middleware/verifytoken.middleware');
-const controller = require('../controller/auth.controller');
+const controller = require('../controller/autentikasi.controller/authAdmin.controller');
 
 
-router.use(verifyToken);
+// router.use(verifyToken);
 
-router.get('/dashboard',verifyToken,function(req, res, next) {
+router.get('/dashboard',function(req, res, next) {
   res.render('admin/dashboard', {title: 'home'});
 });
 
-router.get('/profile',verifyToken,controller.getProfile, function(req, res, next) {
+router.get('/profile',controller.getProfile, function(req, res, next) {
   
 });
 
-router.post('/ubahpassword',verifyToken,controller.changePassword, function(req, res) {
+router.post('/ubahpassword',controller.changePassword, function(req, res) {
   res.status(200).send("Password berhasil diubah");
 });
 
-router.get('/home',verifyToken,function(req, res, next) {
+router.get('/home',function(req, res, next) {
   res.render('admin/dashboard', {title: 'home'});
 });
 
+
+router.post('/logout',controller.logout);
 
 
 module.exports = router;

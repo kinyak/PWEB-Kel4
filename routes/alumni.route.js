@@ -1,22 +1,28 @@
 var express = require('express');
 var router = express.Router();
-const verifyToken= require ('../middleware/verifytoken.middleware');
+const controllerAlumni = require('../controller/autentikasi.controller/authAlumni.controller');
 
 
 // router.use(role('mahasiswa'));
 
 
-router.get('/notfound', verifyToken, function(req, res, next) {
+router.get('/notfound',function(req, res, next) {
   res.render('notfound',{title: 'notfound'});
 });
 
-router.get('/alumni/home', verifyToken, function(req, res, next) {
-  res.render('/alumni/home');
+router.get('/alumni/home', function(req, res, next) {
+  res.render('alumni/home');
 });
 
-router.get('/', verifyToken, function(req, res, next) {
-  res.render('login',{title: 'Login'});
+router.get('/', function(req, res, next) {
+  res.render('home');
 });
 
+
+router.get('/alumni/signup', function(req, res, next) {
+  res.render('alumni/signup', {title: 'Sign Up'});
+});
+
+router.post('/alumni/logout',controllerAlumni.logout);
 //
 module.exports = router;

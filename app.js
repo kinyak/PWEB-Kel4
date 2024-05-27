@@ -3,19 +3,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-require('dotenv').config()
+require('dotenv').config();
+const Sequelize = require('sequelize');
+const session = require('express-session');
+const flash = require('express-flash');
 
 
-
-
-
-
-// var indexRouter = require('./routes/index');
-var authRouter = require('./routes/auth.route');
-var almRouter = require('./routes/alumni.route');
-// var adminRouter = require('./routes/admin.route');
-// var dosenRouter = require('./routes/dosen.route');
-var adminRouter = require('./routes/admin.route');
+var sequelize = new Sequelize("alumnifti", "root", null, {
+  host: 'localhost',
+  port: 3307, 
+  dialect: 'mysql',
+});
 
 
 
@@ -25,6 +23,52 @@ var app = express();
 
 
 
+// express session
+const TWO_HOURS = 1000 * 60 * 60 * 2
+
+SESS_LIFETIME = TWO_HOURS;
+
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+
+sequelize.define("Session", {
+  sid: {
+    type: Sequelize.STRING,
+    primaryKey: true,
+  },
+  userId: Sequelize.STRING,
+  expires: Sequelize.DATE,
+  data: Sequelize.TEXT,
+});
+
+function extendDefaultFields(defaults, session) {
+  return {
+    data: defaults.data,
+    expires: defaults.expires,
+    userId: session.userId,
+  };
+}
+
+var store = new SequelizeStore({
+  db: sequelize,
+  table: "Session",
+  extendDefaultFields: extendDefaultFields,
+  expiration: TWO_HOURS,
+});
+
+app.use(
+  session({
+    secret: process.env.SESS_SECRET,
+    store: store,
+    resave: false, // we support the touch method so per the express-session docs this should be set to false
+    proxy: true, // if you do SSL outside of node.
+    saveUninitialized: false
+  })
+);
+app.use(flash({
+  sessionKeyName: 'express-flash-message',
+  // You can optionally set the onAddFlash and onConsumeFlash callbacks here
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,6 +82,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/node_modules', express.static('node_modules'));
 
 
+// var indexRouter = require('./routes/index');
+var authRouter = require('./routes/auth.route');
+var almRouter = require('./routes/alumni.route');
+// var adminRouter = require('./routes/admin.route');
+// var dosenRouter = require('./routes/dosen.route');
+var adminRouter = require('./routes/admin.route');
 
 // app.use('/', indexRouter);
 app.use('/auth', authRouter);

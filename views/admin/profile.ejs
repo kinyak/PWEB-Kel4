@@ -52,7 +52,7 @@
                     class="mr-3 h-8"
                     alt="Logo Unand"
                     />
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Alumni FTI</span>
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Admin Alumni FTI</span>
                 </a>
                 <form action="#" method="GET" class="hidden md:block pl-2">
                     <label for="topbar-search" class="sr-only">Cari</label>
@@ -610,7 +610,7 @@
                     <span class="sr-only">Open user menu</span>
                     <img
                     class="w-8 h-8 rounded-full"
-                    src="/images/profile.jpeg"
+                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
                     alt="user photo"
                     />
                 </button>
@@ -622,11 +622,11 @@
                     <div class="py-3 px-4">
                     <span
                         class="block text-sm font-semibold text-gray-900 dark:text-white"
-                        >Rendi Kurniawan</span
+                        >Neil Sims</span
                     >
                     <span
                         class="block text-sm text-gray-900 truncate dark:text-white"
-                        >rendi@admin.fti.unand.com</span
+                        >name@flowbite.com</span
                     >
                     </div>
                     <ul
@@ -675,12 +675,12 @@
                     aria-labelledby="dropdown"
                     >
                     <li>
-                        <form action="/auth/logout" method="post">
+                        <form action="/admin/logout" method="post">
                             <button
                         type="submit"
                         class="block w-60 py-2 px-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     >
-                        Sign out
+                        Sign Out
                     </button>
                         </form>
                         
@@ -1129,49 +1129,8 @@
         
     </div>
 </div>
-
-<div class="fixed top-20 right-5 z-50">
-    <div id="toast-success" class="hidden bg-primary-500 text-white py-2 px-4 rounded-md shadow-md">
-      <p id="toast-message">Password changed successfully!</p>
-    </div>
-  </div>
-
-    <script>
-    fetch('/admin/ubahpassword', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ /* form data */ }),
-        })
-        .then(response => {
-            // Add an event listener to the response object
-            response.addEventListener('load', () => {
-            if (response.status === 200) {
-                return response.json();
-            } else {
-                throw new Error('Network response was not ok.');
-            }
-            });
-        })
-        .then(data => {
-            if (data.success) {
-            showToast(data.success);
-            } else if (data.error) {
-            // Handle error
-            console.error(data.error);
-            }
-        })
-        .catch(error => {
-            // Handle network error
-            console.error('Network error:', error);
-        });
-    </script>
         
     <script src="/node_modules/flowbite/dist/flowbite.min.js">
-        window.addEventListener('DOMContentLoaded', () => {
-            initFlowbite();
-        });
         document.addEventListener("DOMContentLoaded", function(event) {
             document.getElementById('updateProductButton').click();
         });

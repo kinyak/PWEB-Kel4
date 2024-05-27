@@ -3,10 +3,15 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('alumni', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
       nim: {
         allowNull: false,
         autoIncrement: false,
-        primaryKey: true,
         type: Sequelize.STRING
       },
       email: {

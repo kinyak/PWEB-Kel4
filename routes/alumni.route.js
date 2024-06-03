@@ -23,6 +23,8 @@ router.get('/alumni/signup', function(req, res, next) {
   res.render('alumni/signup', {title: 'Sign Up'});
 });
 
+router.post('/alumni/checksignup',controllerAlumni.signUp)
+
 router.post('/alumni/logout',controllerAlumni.logout);
 //
 module.exports = router;

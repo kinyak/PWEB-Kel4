@@ -1,35 +1,22 @@
 "use strict";
 const { Model } = require("sequelize");
-
 module.exports = (sequelize, DataTypes) => {
-  class alumni extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class Alumni extends Model {
     static associate(models) {
-      // define association here
+      Alumni.belongsTo(models.role, { foreignKey: 'roleId', targetKey: 'id' });
+      Alumni.belongsToMany(models.formulir_alumni, { through: models.detail_formulir, foreignKey: 'alumni_id' });
+      Alumni.hasMany(models.form_pengajuan_event, { foreignKey: 'alumni_id' });
+
     }
   }
-  alumni.init(
+  Alumni.init(
     {
-      nim: {
-        type: DataTypes.STRING,
-        unique: true,
-      },
-      name: DataTypes.STRING,
-      password: DataTypes.STRING,
-      date_of_birth: DataTypes.DATE,
-      phone: DataTypes.STRING,
-      gender: DataTypes.STRING,
-      address: DataTypes.STRING,
-      email: DataTypes.STRING,
-      departemen: DataTypes.STRING,
-      pekerjaan: DataTypes.STRING,
-      perusahaan: DataTypes.STRING,
-      jabatan: DataTypes.STRING,
-      role: DataTypes.STRING,
+      id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true,},
+      nim: DataTypes.STRING(255),
+      email: DataTypes.STRING(255),
+      name: DataTypes.STRING(256),
+      password: DataTypes.STRING(255),
+      roleId: { type: DataTypes.INTEGER, field: 'roleId' },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
@@ -38,5 +25,5 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "alumni",
     }
   );
-  return alumni;
+  return Alumni;
 };

@@ -6,9 +6,9 @@ require('dotenv').config();
 const form = (req, res) => {
   if (req.session.user) {
     // If the user has a session, redirect to the appropriate page
-    if (req.session.user.role === "admin") {
+    if (req.session.user.role === 1) {
       return res.redirect("/admin/home");
-    } else if (req.session.user.role === "alumni") {
+    } else if (req.session.user.role === 2) {
       return res.redirect("/home");
     }
   }
@@ -34,9 +34,9 @@ const checklogin = async (req, res) => {
           req.session.user = {
             id: foundUser.id,
             email: foundUser.email,
-            role: foundUser.role,
+            roleId: foundUser.roleId,
           };
-      if (foundUser.role === "admin") {
+      if (foundUser.role === 1) {
         return res.redirect("/admin/dashboard");
         } else if (foundUser.role === "alumni") {
           return res.redirect("/alumni/dashboard");
@@ -72,7 +72,7 @@ const getProfile = async (req, res, next) => {
   try {
     const { role } = req.session.user;
 
-    if (role !== 'admin') {
+    if (role !== 1) {
       return res.status(401).send('Unauthorized');
     }
 

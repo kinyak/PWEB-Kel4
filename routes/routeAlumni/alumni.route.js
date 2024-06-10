@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const controllerAlumni = require('../controller/autentikasi.controller/authAlumni.controller');
+const controllerAlumni = require('../../controller/autentikasiController/authAlumni.controller');
 
 
 // router.use(role('mahasiswa'));

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ubah Artikel</title>
+</head>
+<body>
+<h1>Ubah Artikel</h1>
+<form action="/admin/artikel/ubah/<%= artikel.id %>" method="POST">
+    <label for="judul">Judul:</label>
+    <input type="text" name="judul" value="<%= artikel.judul %>" required><br><br>
+    <label for="konten">Konten:</label>
+    <textarea name="konten" required><%= artikel.konten %></textarea><br><br>
+    <label for="gambar">Gambar:</label>
+    <input type="text" name="gambar" value="<%= artikel.gambar %>"><br><br>
+    <label for="kategori">Kategori:</label>
+    <input type="text" name="kategori" value="<%= artikel.kategori %>" required><br><br>
+    <label for="admin_id">Admin:</label>
+    <select name="admin_id" required>
+    <% admin.forEach(function(admin) { %>
+        <option value="<%= admin.id %>" <%= admin.id === artikel.admin_id ? 'selected' : '' %>><%= admin.email %></option>
+    <% }) %>
+    </select><br><br>
+    <button type="submit">Simpan</button>
+</form>
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+<title>Ubah Artikel</title>
+</head>
+<body>
+<h1>Ubah Artikel</h1>
+<form action="/artikel/ubah/<%= artikel.id %>" method="POST">
+    <label for="judul">Judul:</label>
+    <input type="text" name="judul" value="<%= artikel.judul %>" required><br><br>
+    <label for="konten">Konten:</label>
+    <textarea name="konten" required><%= artikel.konten %></textarea><br><br>
+    <label for="gambar">Gambar:</label>
+    <input type="text" name="gambar" value="<%= artikel.gambar %>"><br><br>
+    <label for="kategori">Kategori:</label>
+    <input type="text" name="kategori" value="<%= artikel.kategori %>" required><br><br>
+    <label for="admin_id">Admin:</label>
+    <select name="admin_id" required>
+    <% admin.forEach(function(admin) { %>
+        <option value="<%= admin.id %>" <%= admin.id === artikel.admin_id ? 'selected' : '' %>><%= admin.email %></option>
+    <% }) %>
+    </select><br><br>
+    <button type="submit">Simpan</button>
+</form>
+</body>
+</html>

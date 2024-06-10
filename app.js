@@ -7,6 +7,7 @@ require('dotenv').config();
 const Sequelize = require('sequelize');
 const session = require('express-session');
 const flash = require('express-flash');
+const multer = require('multer');
 
 
 var sequelize = new Sequelize("alumnifti", "root", null, {
@@ -84,10 +85,12 @@ app.use('/node_modules', express.static('node_modules'));
 
 // var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth.route');
-var almRouter = require('./routes/alumni.route');
+var almRouter = require('./routes/routeAlumni/alumni.route');
+var formRouter = require('./routes/routeAlumni/formulir.route');
 // var adminRouter = require('./routes/admin.route');
 // var dosenRouter = require('./routes/dosen.route');
-var adminRouter = require('./routes/admin.route');
+var adminRouter = require('./routes/routeAdmin/admin.route');
+var artikelRouter = require('./routes/routeAdmin/artikel.route');
 
 // app.use('/', indexRouter);
 app.use('/auth', authRouter);
@@ -96,10 +99,7 @@ app.use('/admin', adminRouter);
 // app.use('/admin', adminRouter);
 // app.use('/dosen', dosenRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -111,5 +111,27 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+// route handling for 404
+app.use(function(req, res, next) {
+  res.status(404);
+
+  // respond with html page
+  if (req.accepts('html')) {
+    res.render('notfound',{title: 'notfound'});
+    return;
+  }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.json({ error: 'Not found' });
+    return;
+  }
+
+  // default to plain-text. send()
+  res.type('txt').send('Not found');
+});
+
 
 module.exports = app;

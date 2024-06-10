@@ -19,6 +19,10 @@ module.exports = {
       roleId: {
         type: Sequelize.INTEGER
       },
+      gambar: {
+        allowNull: true,
+        type: Sequelize.STRING(255)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

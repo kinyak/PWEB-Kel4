@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const controllerAdmin = require('../controller/autentikasi.controller/authAdmin.controller');
-const controllerAlumni = require('../controller/autentikasi.controller/authAlumni.controller');
+const controllerAdmin = require('../controller/autentikasiController/authAdmin.controller');
+const controllerAlumni = require('../controller/autentikasiController/authAlumni.controller');
 const isLogin = require('../middleware/islogin.middleware');
 
 

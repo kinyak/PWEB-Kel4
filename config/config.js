@@ -4,7 +4,7 @@ module.exports = {
     password: null,
     database: 'alumnifti',
     host: 'localhost',
-    port: 3307,
+    port: 3306,
     dialect: 'mysql',
     define: {
       freezeTableName: true

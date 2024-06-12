@@ -12,7 +12,7 @@ const multer = require('multer');
 
 var sequelize = new Sequelize("alumnifti", "root", null, {
   host: 'localhost',
-  port: 3307, 
+  port: 3306, 
   dialect: 'mysql',
 });
 

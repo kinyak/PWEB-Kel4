@@ -10,6 +10,14 @@ async up(queryInterface, Sequelize) {
         userId: Sequelize.STRING,
         expires: Sequelize.DATE,
         data: Sequelize.TEXT,
+        createdAt: {
+            allowNull: false,
+            type: Sequelize.DATE
+          },
+          updatedAt: {
+            allowNull: false,
+            type: Sequelize.DATE
+          }
     });
 },
 async down(queryInterface, Sequelize) {

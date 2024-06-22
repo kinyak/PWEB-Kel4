@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Daftar Artikel</title>
+<link rel="stylesheet" href="/stylesheets/output.css">
+<script src="/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+    <%- include('../layout/dashboard') %>
+
+    <!-- Table Section -->
+    <!-- Card -->
+    <div class=" max-w-full px-4 py-10 sm:px-6 lg:px-8 mx-auto">
+        <div class="-m-1.5 overflow-x-auto">
+        <div class="p-1.5 min-w-full inline-block align-middle">
+            <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+            <!-- Header -->
+            <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
+                <div>
+                <h2 class="text-xl font-semibold text-gray-800">
+                    Artikel
+                </h2>
+                <p class="text-sm text-gray-600">
+                    Tambah artikel, edit, dan lainnya
+                </p>
+                </div>
+    
+                <div>
+                <div class="inline-flex gap-x-2">
+                    <a class="hover:text-white hover:bg-red-500 py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm disabled:opacity-50 disabled:pointer-events-none" href="#" id="deleteButton">
+                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    Delete
+                    </a>
+    
+                    <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none" href="/admin/artikel/tambah">
+                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                    Tambah Artikel
+                    </a>
+                </div>
+                </div>
+            </div>
+            <!-- End Header -->
+    
+            <!-- Table -->
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="ps-6 py-3 text-start">
+                    <label for="hs-at-with-checkboxes-main" class="flex">
+                        <input type="checkbox" id="selectAllCheckbox" class="shrink-0 border-gray-300 rounded text-primary-600 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" id="hs-at-with-checkboxes-main">
+                        <span class="sr-only">Checkbox</span>
+                    </label>
+                    </th>
+    
+                    <th scope="col" class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start">
+                    <div class="flex items-center gap-x-2">
+                        <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                        Judul
+                        </span>
+                    </div>
+                    </th>
+    
+                    <th scope="col" class="px-6 py-3 text-start">
+                    <div class="flex items-center gap-x-2">
+                        <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                        Konten
+                        </span>
+                    </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-start">
+                    <div class="flex items-center gap-x-2">
+                        <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                        Kategori
+                        </span>
+                    </div>
+                    </th>
+    
+                    <th scope="col" class="px-6 py-3 text-end"></th>
+                </tr>
+                </thead>
+    
+                <tbody class="divide-y divide-gray-200">
+                    <% artikel.forEach(artikel => { %>
+                        <tr>
+                            <td class="size-px whitespace-nowrap">
+                                <div class="ps-6 py-3">
+                                    <label for="hs-at-with-checkboxes-<%= artikel.id %>" class="flex">
+                                        <input type="checkbox" class="alumniCheckbox shrink-0 border-gray-300 rounded text-primary-600 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" id="hs-at-with-checkboxes-<%= artikel.id %>">
+                                        <span class="sr-only">Checkbox</span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="size-px whitespace-nowrap">
+                                <div class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
+                                    <div class="flex items-center gap-x-3">
+                                        <div class="grow">
+                                            <span class="block text-sm font-semibold text-gray-800"><%= artikel.judul %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="h-px w-72 whitespace-nowrap">
+                                <div class="px-6 py-3">
+                                    <span style=" overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Add ellipsis (...) */
+  white-space: nowrap; /* Prevent text from wrapping */
+  max-width: 300px; /* Adjust the width to your preference */
+  display: block;" class="block text-sm font-semibold text-gray-800"><%- artikel.konten %></span> 
+                                </div>
+                            </td>
+                            <td class="size-px whitespace-nowrap">
+                                <div class="px-6 py-3">
+                                    <span class="text-sm text-gray-500"><%= artikel.kategori %></span>
+                                </div>
+                            </td>
+                            <td class="size-px whitespace-nowrap">
+                                <div class="px-6 py-1.5">
+                                    <a href="/admin/artikel/edit/<%= artikel.id %>" class="text-primary-600 px-6 py-1.5">
+                                        Edit
+                                    </a>
+                                </div>
+                            </td>
+                            </tr>
+                            <% }) %>
+                            </tbody>
+                            </table>
+                            <!-- End Table -->
+                            
+                            <!-- Footer -->
+                            <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200">
+                                <div>
+                                    <p class="text-sm text-gray-600">
+                                        <span class="font-semibold text-gray-800"><%= totalRecords %></span> results
+                                    </p>
+                                </div>
+                            
+                                <div>
+                                    <div class="inline-flex gap-x-2">
+                                        <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 <%= currentPage === 1 ? 'disabled:opacity-50 disabled:pointer-events-none' : '' %>">
+                                            <a href="?page=<%= currentPage - 1 %>">
+                                                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                                                Prev
+                                            </a>
+                                        </button>
+                                        <div class="inline-flex gap-x-2">
+                                            <% for (let i = 1; i <= totalPages; i++) { %>
+                                                <% if (i === currentPage) { %>
+                                                    <span class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-gray-100 text-gray-800"><%= i %></span>
+                                                <% } else { %>
+                                                    <a href="?page=<%= i %>" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 hover:bg-gray-50"><%= i %></a>
+                                                <% } %>
+                                            <% } %>
+                                        </div>
+                                        <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 <%= currentPage === totalPages ? 'disabled:opacity-50 disabled:pointer-events-none' : '' %>">
+                                            <a href="?page=<%= currentPage + 1 %>">
+                                                Next
+                                                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                                            </a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Footer -->
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                            <!-- End Card -->
+                            </div>
+                            <!-- End Table Section -->
+
+                            <script src="/node_modules/preline/dist/index.js"></script>
+                            <script src="/javascripts/checkbox/checkboxArtikel.js">
+                            </script>
+
+
+<script src="/node_modules/preline/dist/index.js"></script>
+</body>
+</html>

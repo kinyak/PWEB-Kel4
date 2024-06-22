@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/stylesheets/output.css">
+    <title>Daftar Lowongan</title>
+</head>
+<body>
+    <%- include('../layout/dashboard') %>
+    <div class="container mx-auto overflow-y-auto max-h-screen">
+        <div id="card-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4">
+            <% lowongan.forEach(function(lowongan) { %>
+                <div class="max-w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <img src="<%= lowongan.gambar %>" alt="<%= lowongan.judul %>" class="mb-4 w-full h-64 object-cover">
+                    <p class="mb-3 py-2 font-bold text-black text-xl dark:text-gray-400"><%= lowongan.judul %></p>
+                    <p class="mb-3 font-light text-gray-500 text-sm dark:text-gray-400">Deskripsi: <%= lowongan.deskripsi %></p>
+                    <p class="mb-3 font-light text-gray-500 text-sm dark:text-gray-400">Tanggal Tutup: <%= lowongan.tanggal_tutup %></p>
+                    <button class="delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="<%= lowongan.id %>">Delete</button>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+    <script src="/node_modules/preline/dist/index.js"></script>
+    <script>
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', async () => {
+                const lowonganId = button.dataset.id;
+                try {
+                    const response = await fetch(`/admin/lowongan/${lowonganId}`, {
+                        method: 'DELETE'
+                    });
+                    if (response.ok) {
+                        const cardContainer = document.getElementById('card-container');
+                        const card = button.closest('.max-w-full');
+                        cardContainer.removeChild(card);
+                    } else {
+                        console.error('Failed to delete lowongan');
+                    }
+                } catch (error) {
+                    console.error('Error deleting lowongan:', error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/stylesheets/output.css">
+    <title>Daftar Alumni</title>
+    <script src="/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+    <%- include('../layout/dashboard') %>
+    
+    <!-- Table Section -->
+    <!-- Card -->
+    <div class=" max-w-full px-4 py-10 sm:px-6 lg:px-8 mx-auto">
+        <div class="-m-1.5 overflow-x-auto">
+        <div class="p-1.5 min-w-full inline-block align-middle">
+            <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+            <!-- Header -->
+            <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
+                <div>
+                <h2 class="text-xl font-semibold text-gray-800">
+                    Alumni
+                </h2>
+                <p class="text-sm text-gray-600">
+                    Tambahkan alumni, edit, dan lainnya
+                </p>
+                </div>
+    
+                <div>
+                <div class="inline-flex gap-x-2">
+                        <button type="button" class="hover:text-white hover:bg-red-500 py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm disabled:opacity-50 disabled:pointer-events-none"  id="deleteButton">
+                        <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        Delete
+                        </button>
+    
+                    <button type="button" data-hs-overlay="#hs-addUser" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none">
+                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                    Tambah alumni
+                    </button>
+                </div>
+                </div>
+            </div>
+            <!-- End Header -->
+    
+            <!-- Table -->
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="ps-6 py-3 text-start">
+                    <label for="hs-at-with-checkboxes-main" class="flex">
+                        <input type="checkbox" id="selectAllCheckbox" class="shrink-0 border-gray-300 rounded text-primary-600 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" id="hs-at-with-checkboxes-main">
+                        <span class="sr-only">Checkbox</span>
+                    </label>
+                    </th>
+    
+                    <th scope="col" class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start">
+                    <div class="flex items-center gap-x-2">
+                        <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                        Nama
+                        </span>
+                    </div>
+                    </th>
+    
+                    <th scope="col" class="px-6 py-3 text-start">
+                    <div class="flex items-center gap-x-2">
+                        <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                        NIM
+                        </span>
+                    </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-start">
+                    <div class="flex items-center gap-x-2">
+                        <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                        Email
+                        </span>
+                    </div>
+                    </th>
+    
+                    <th scope="col" class="px-6 py-3 text-end"></th>
+                </tr>
+                </thead>
+    
+                <tbody class="divide-y divide-gray-200">
+                    <% alumni.forEach(alumnus => { %>
+                        <tr>
+                            <td class="size-px whitespace-nowrap">
+                                <div class="ps-6 py-3">
+                                    <label for="hs-at-with-checkboxes-<%= alumnus.id %>" class="flex">
+                                        <input type="checkbox" class="alumniCheckbox shrink-0 border-gray-300 rounded text-primary-600 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" id="hs-at-with-checkboxes-<%= alumnus.id %>">
+                                        <span class="sr-only">Checkbox</span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="namaAlumni size-px whitespace-nowrap">
+                                <div class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
+                                    <div class="flex items-center gap-x-3">
+                                        <img class="inline-block size-[38px] rounded-full" src="/images/alumni/<%= alumnus.gambar %>" alt="Image Description">
+                                        <div class="grow">
+                                            <span class="block text-sm font-semibold text-gray-800"><%= alumnus.name %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="nim h-px w-72 whitespace-nowrap">
+                                <div class="px-6 py-3">
+                                    <span class="block text-sm font-semibold text-gray-800"><%= alumnus.nim %></span>
+                                </div>
+                            </td>
+                            <td class="email size-px whitespace-nowrap">
+                                <div class="px-6 py-3">
+                                    <span class="text-sm text-gray-500"><%= alumnus.email %></span>
+                                </div>
+                            </td>
+                            <td class="size-px whitespace-nowrap">
+                                <div class="px-6 py-1.5">
+                                    <button  type="button" id="edit-btn-<%= alumnus.id %>" data-hs-overlay="#hs-editUser" class="buttonedit text-primary-600 px-6 py-1.5">
+                                        Edit
+                                    </button>
+                                </div>
+                            </td>
+                            </tr>
+                            <% }) %>
+                            </tbody>
+                            </table>
+                            <!-- End Table -->
+                            
+                            <!-- Footer -->
+                            <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200">
+                                <div>
+                                    <p class="text-sm text-gray-600">
+                                        <span class="font-semibold text-gray-800"><%= totalRecords %></span> results
+                                    </p>
+                                </div>
+                            
+                                <div>
+                                    <div class="inline-flex gap-x-2">
+                                        <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 <%= currentPage === 1 ? 'disabled:opacity-50 disabled:pointer-events-none' : '' %>">
+                                            <a href="?page=<%= currentPage - 1 %>">
+                                                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                                                Prev
+                                            </a>
+                                        </button>
+                                        <div class="inline-flex gap-x-2">
+                                            <% for (let i = 1; i <= totalPages; i++) { %>
+                                                <% if (i === currentPage) { %>
+                                                    <span class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-gray-100 text-gray-800"><%= i %></span>
+                                                <% } else { %>
+                                                    <a href="?page=<%= i %>" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 hover:bg-gray-50"><%= i %></a>
+                                                <% } %>
+                                            <% } %>
+                                        </div>
+                                        <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 <%= currentPage === totalPages ? 'disabled:opacity-50 disabled:pointer-events-none' : '' %>">
+                                            <a href="?page=<%= currentPage + 1 %>">
+                                                Next
+                                                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                                            </a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Footer -->
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                            <!-- End Card -->
+                            </div>
+                            <!-- End Table Section -->
+
+                            <div id="hs-editUser" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
+                                <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+                                    <div class="relative flex flex-col bg-white border shadow-sm rounded-xl overflow-hidden dark:bg-neutral-900 dark:border-neutral-800">
+                                        <div class="absolute top-2 end-2">
+                                            <button type="button" class="flex justify-center items-center size-7 text-sm font-semibold rounded-lg border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:border-transparent dark:hover:bg-neutral-700" data-hs-overlay="#hs-editUser">
+                                                <span class="sr-only">Close</span>
+                                                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                            </button>
+                                        </div>
+                            
+                                        <div class="p-4 sm:p-10 overflow-y-auto">
+                                            <div class="mb-6 text-center">
+                                                <h3 class="mb-2 text-xl font-bold text-gray-800 dark:text-neutral-200">
+                                                    Edit User
+                                                </h3>
+                                                <p class="text-gray-500 dark:text-neutral-500">
+                                                    Update the user details.
+                                                </p>
+                                            </div>
+                            
+                                            <form id="editUserForm" enctype="multipart/form-data">
+                                                <input type="hidden" id="idEdit" name="id" required>
+                                                <div class="space-y-4">
+                                                    <div>
+                                                        <label for="nim" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
+                                                        <input type="text" id="nimEdit" name="nim" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                                    </div>
+                                                    <div>
+                                                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                                        <input type="email" id="emailEdit" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                                    </div>
+                                                    <div>
+                                                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                                        <input type="text" id="namaEdit" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                                    </div>
+                                                    <div>
+                                                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                                        <input type="password" id="passwordEdit" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                    </div>
+                                                    <div>
+                                                        <div>
+                                                        </div>
+                                                        <div>
+                                                            <label for="gambar" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Picture</label>
+                                                            <input type="file" id="gambarEdit" name="gambar" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept="image/*">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex justify-end items-center gap-x-2 py-3 px-4 bg-gray-50 border-t dark:bg-neutral-950 dark:border-neutral-800">
+                                                    <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-800" data-hs-overlay="#hs-editUser">
+                                                        Cancel
+                                                    </button>
+                                                    <button type="submit" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none">
+                                                        Update Alumni
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+            <div id="hs-addUser" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
+                <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+                    <div class="relative flex flex-col bg-white border shadow-sm rounded-xl overflow-hidden dark:bg-neutral-900 dark:border-neutral-800">
+                    <div class="absolute top-2 end-2">
+                        <button type="button" class="flex justify-center items-center size-7 text-sm font-semibold rounded-lg border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:border-transparent dark:hover:bg-neutral-700" data-hs-overlay="#hs-addUser">
+                        <span class="sr-only">Close</span>
+                        <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        </button>
+                    </div>
+                
+                    <div class="p-4 sm:p-10 overflow-y-auto">
+                        <div class="mb-6 text-center">
+                        <h3 class="mb-2 text-xl font-bold text-gray-800 dark:text-neutral-200">
+                            Tambahkan alumni baru
+                        </h3>
+                        <p class="text-gray-500 dark:text-neutral-500">
+                            Isi pada detail untuk menambahkan
+                        </p>
+                        </div>
+                
+                        <form action="/admin/create/alumni" method="POST" enctype="multipart/form-data" >
+                        <div class="space-y-4">
+                            <div>
+                            <label for="nim" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
+                            <input type="text" id="nimAdd" name="nim" value="<%= oldData.nim ? oldData.nim : '' %>" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                            </div>
+                            <div>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                            <input type="email" id="emailAdd" name="email" value="<%= oldData.email ? oldData.email : '' %>" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                            </div>
+                            <div>
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            <input type="text" id="nameAdd" name="name" value="<%= oldData.name ? oldData.name : '' %>" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                            </div>
+                            <div>
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                            <input type="password" id="passwordAdd" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                            </div>
+                            <div>
+                            <div>
+                            </div>
+                            <div>
+                            <label for="gambar" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Picture</label>
+                            <input type="file" id="gambarAdd" name="gambar" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept="image/*" required>
+                            </div>
+                        </div>
+                        <div class="flex justify-end items-center gap-x-2 py-3 px-4 bg-gray-50 border-t dark:bg-neutral-950 dark:border-neutral-800">
+                            <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-800" data-hs-overlay="#hs-addUser">
+                            Batal
+                            </button>
+                            <button type="submit" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none">
+                            Tambahkan
+                            </button>
+                        </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+
+                            <script src="/node_modules/preline/dist/index.js"></script>
+                            <script src="/javascripts/checkbox/checkboxAlumni.js">
+                            </script>
+                            <script>
+                                let id = '';
+                                const editButtons = document.querySelectorAll('.buttonedit');
+
+editButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const buttonId = event.target.id;
+        const id = buttonId.split('-')[2];
+
+    
+        const row = button.closest('tr'); // Get the parent row of the clicked button
+        const alumniId = row.dataset.alumniId; // Assuming you have a data-alumni-id attribute on the row
+        const nameElement = row.querySelector('.namaAlumni');
+        const nimElement = row.querySelector('.nim');
+        const email = row.querySelector('.email').textContent;
+
+        const name = nameElement ? nameElement.textContent.trim() : '';
+        const nim = nimElement ? nimElement.textContent.trim() : '';
+
+        // Retrieve other data fields as needed
+
+        // Populate the edit modal with the retrieved data
+        document.getElementById('nimEdit').value = nim;
+        document.getElementById('emailEdit').value = email;
+        document.getElementById('namaEdit').value = name;
+        document.getElementById('idEdit').value = id;
+
+
+        // Set other input fields' values as needed
+
+        // Show the edit modal
+        const editModal = document.getElementById('hs-editUser');
+        editModal.classList.remove('hidden');
+        
+    });
+});
+                            </script>
+            <script>
+                const form = document.getElementById('editUserForm');
+    form.addEventListener('submit', (event) => {
+    event.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(form);
+
+    // 1. Create an object to hold parsed values
+    const parsedFormData = {};
+
+    // 2. Iterate through FormData entries
+    for (const [name, value] of formData.entries()) {
+        parsedFormData[name] = value; 
+        
+        // 3. Handle file inputs (binary data)
+        if (value instanceof File) {
+            // You might want to handle file uploads differently (e.g., convert to base64)
+            parsedFormData[name] = "(binary)"; 
+        }
+    }
+
+    // 4. Now, log the parsed data
+    console.log(parsedFormData); 
+    // Send the form data to the server using fetch or XMLHttpRequest
+    fetch('/admin/update/alumni', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(parsedFormData)
+    })
+    .then(response => {
+        location.reload();
+        // Handle the response
+    })
+    .catch(error => {
+        // Handle the error
+    });
+    });
+        </script>
+        <% if (messages.error) { %>
+            <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '<%= messages.error %>'
+            });
+            </script>
+        <% } %>
+                            </body>
+                            </html>

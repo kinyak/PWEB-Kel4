@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Alumni Distribution Map</title>
+    <script src="/node_modules/preline/dist/index.js"></script>
+    <link rel="stylesheet" href="/stylesheets/output.css">
+    <link rel="stylesheet" href="/node_modules/leaflet/dist/leaflet.css" />
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+        #map {
+            flex-grow: 1;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #legend {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <%- include('../layout/dashboard') %>
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Sebaran Wilayah Kerja Alumni Berdasarkan Provinsi</h1>
+        <div id="map" class="rounded-lg shadow-lg mb-6"></div>
+        <div id="legend" class="bg-white p-4 rounded-lg shadow-lg"></div>
+    </div>
+    <script src="/node_modules/leaflet/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([-2.548926, 118.014863], 5);
+    
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    
+        function getMarkerSize(count) {
+            return Math.max(8, Math.min(count * 2, 30));
+        }
+    
+        function getColor(count) {
+            return count > 100 ? '#800026' :
+                count > 50  ? '#BD0026' :
+                count > 20  ? '#E31A1C' :
+                count > 10  ? '#FC4E2A' :
+                count > 5   ? '#FD8D3C' :
+                count > 2   ? '#FEB24C' :
+                count > 1   ? '#FED976' :
+                count == 1  ? '#FFEDA0' :
+                                '#FFFFFF';  // White for zero count
+        }
+    
+        fetch('/admin/report/getsebaranalumni')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(province => {
+                    if (province['provinsi.latitude'] && province['provinsi.longitude']) {
+                        const size = getMarkerSize(province.count);
+                        const color = getColor(province.count);
+                        
+                        L.circleMarker([province['provinsi.latitude'], province['provinsi.longitude']], {
+                            radius: size,
+                            fillColor: color,
+                            color: '#000',
+                            weight: 1,
+                            opacity: 1,
+                            fillOpacity: 0.8
+                        })
+                        .addTo(map)
+                        .bindPopup(`
+                            <b>${province.provinsi_nama}</b><br>
+                            Jumlah Alumni: ${province.count}
+                        `);
+                    }
+                });
+    
+                const legend = L.control({ position: 'bottomright' });
+
+legend.onAdd = function (map) {
+    const div = L.DomUtil.create('div', 'info legend');
+    const grades = [0, 1, 2, 5, 10, 20, 50, 100];
+    let labels = ['<strong>Sebaran Alumni</strong><br>']; // Removed the title
+
+    // Reduced font sizes and margins
+    div.style.fontSize = '10px';
+    div.style.lineHeight = '12px';
+
+    // Removed extra spacing and padding
+    div.style.padding = '6px'; 
+
+    // Add legend items
+    for (let i = 0; i < grades.length; i++) {
+        const from = grades[i];
+        const to = grades[i + 1];
+
+        labels.push(
+            '<i style="background:' + getColor(from + 1) + '; width: 12px; height: 12px; display: inline-block; margin-right: 4px;"></i> ' +
+            from + (to ? '&ndash;' + to : '+')
+        );
+    }
+
+    div.innerHTML = labels.join('<br>');
+    div.style.backgroundColor = '#fff';
+    div.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)'; // Smaller shadow
+    div.style.borderRadius = '3px'; 
+
+    return div;
+};
+
+legend.addTo(map);
+                
+            })
+            .catch(error => console.error('Error fetching alumni data:', error));
+    </script>
+    
+    
+</body>
+</html>

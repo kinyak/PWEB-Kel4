@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Alumni Distribution Map</title>
+    <script src="/node_modules/preline/dist/index.js"></script>
+    <link rel="stylesheet" href="/stylesheets/output.css">
+    <link rel="stylesheet" href="/node_modules/leaflet/dist/leaflet.css" />
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+        #map {
+            flex-grow: 1;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #legend {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+        <!-- ========== HEADER ========== -->
+        <header class="flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full py-7">
+            <nav class="relative max-w-7xl w-full flex flex-wrap md:grid md:grid-cols-12 basis-full items-center px-4 md:px-6 mx-auto" aria-label="Global">
+            <div class="md:col-span-3">
+                <!-- Logo -->
+                <a class="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-none focus:opacity-80" href="/home" aria-label="Preline">
+                <img class="w-40 h-auto" src="\images\unand-emas-small.png">
+                </a>
+                <!-- End Logo -->
+            </div>
+        
+            <!-- Button Group -->
+            <div class="flex items-center gap-x-2 ms-auto py-1 md:ps-6 md:order-3 md:col-span-3">
+                <button type="button" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-500 text-gray-500 hover:border-primary-600 hover:text-primary-600 disabled:opacity-50 disabled:pointer-events-none dark:border-gray-700 dark:text-gray-400 dark:hover:text-primary-500 dark:hover:border-primary-600 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                    <a href="/alumni/form/upload">Formulir Alumni</a> 
+                    </button>
+                    <button type="button" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary-600 text-white hover:bg-white hover:text-black hover:border-primary-600 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                    <a href="/auth/login/alumni">Log In</a> 
+                    </button>
+        
+                <div class="md:hidden">
+                <button type="button" class="hs-collapse-toggle size-[38px] flex justify-center items-center text-sm font-semibold rounded-xl border border-gray-200 text-primary hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none" data-hs-collapse="#navbar-collapse-with-animation" aria-controls="navbar-collapse-with-animation" aria-label="Toggle navigation">
+                    <svg class="hs-collapse-open:hidden flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
+                    <svg class="hs-collapse-open:block hidden flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+                </div>
+            </div>
+            <!-- End Button Group -->
+        
+            <!-- Collapse -->
+            <div id="navbar-collapse-with-animation" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow md:block md:w-auto md:basis-auto md:order-2 md:col-span-6">
+                <div class="flex flex-col gap-y-4 gap-x-0 mt-5 md:flex-row md:justify-center md:items-center md:gap-y-0 md:gap-x-7 md:mt-0">
+                <div>
+                    <a class="relative inline-block before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 text-primary-600" href="/home" aria-current="page">Beranda</a>
+                </div>
+    
+                <div class="hs-dropdown [--strategy:static] md:[--strategy:fixed] [--adaptive:none] md:[--trigger:hover] py-3 ps-px sm:px-3">
+                    <button type="button" class="flex items-center w-full  text-primary-600 hover:text-gray-600 dark:text-neutral-400 dark:hover:text-neutral-500 ">
+                        Tentang Alumni
+                        <svg class="ms-2 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+            
+                    <div class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] md:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 md:w-48 hidden z-10 bg-white md:shadow-md rounded-lg p-2 dark:bg-neutral-800 md:dark:border dark:border-neutral-700 dark:divide-neutral-700 before:absolute top-full md:border before:-top-5 before:start-0 before:w-full before:h-5">
+                        <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-primary-600 hover:bg-gray-100 hover:text-gray-500 focus:ring-2 focus:ring-primary-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300" href="http://alumni.unand.ac.id/index.php/tentang-satgas/profil-alumni">
+                        Profil Alumni
+                        </a>
+                        <div class="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] md:[--trigger:hover] relative">
+                        </div>
+            
+                        <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-primary-600 hover:bg-gray-100  hover:text-gray-500 focus:ring-2 focus:ring-primary-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300" href="/sebaran-alumni">
+                        Sebaran Alumni
+                        </a>
+                        </div>
+                    
+                    </div>
+                    <div>
+                        <a class="inline-block text-primary-600 hover:text-gray-600" href="/blog">Artikel</a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Collapse -->
+            </nav>
+        </header>
+        <!-- ========== END HEADER ========== -->
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Sebaran Wilayah Kerja Alumni Berdasarkan Provinsi</h1>
+        <div id="map" class="rounded-lg shadow-lg mb-6"></div>
+        <div id="legend" class="bg-white p-4 rounded-lg shadow-lg"></div>
+    </div>
+
+    
+        <!-- ========== FOOTER ========== -->
+        <footer class="flex justify-center items-center mt-auto w-full max-w-full py-10 px-4 sm:px-6 lg:px-8 bg-primary-700 mx-auto">
+            <!-- Grid -->
+            <div class="text-center">
+            
+                <a class="flex-none text-xl font-semibold text-white" href="#" aria-label="Brand">Alumni Fakultas Teknologi Informasi</a>
+                <br>
+                <a class="flex-none text-xl font-semibold text-white" href="#" aria-label="Brand">Universitas Andalas</a>
+            </div>
+            <!-- End Col -->
+            <div class="content-center">
+            <div class="mt-3 items-center max-w-40">
+                <img src="\images\logo_unand.webp" alt="">
+            </div>
+    
+            </div>
+            <!-- End Grid -->
+        </footer>
+        <!-- ========== END FOOTER ========== -->
+    <script src="/node_modules/leaflet/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([-2.548926, 118.014863], 5);
+    
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    
+        function getMarkerSize(count) {
+            return Math.max(8, Math.min(count * 2, 30));
+        }
+    
+        function getColor(count) {
+            return count > 100 ? '#800026' :
+                count > 50  ? '#BD0026' :
+                count > 20  ? '#E31A1C' :
+                count > 10  ? '#FC4E2A' :
+                count > 5   ? '#FD8D3C' :
+                count > 2   ? '#FEB24C' :
+                count > 1   ? '#FED976' :
+                count == 1  ? '#FFEDA0' :
+                                '#FFFFFF';  // White for zero count
+        }
+    
+        fetch('/admin/report/getsebaranalumni')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(province => {
+                    if (province['provinsi.latitude'] && province['provinsi.longitude']) {
+                        const size = getMarkerSize(province.count);
+                        const color = getColor(province.count);
+                        
+                        L.circleMarker([province['provinsi.latitude'], province['provinsi.longitude']], {
+                            radius: size,
+                            fillColor: color,
+                            color: '#000',
+                            weight: 1,
+                            opacity: 1,
+                            fillOpacity: 0.8
+                        })
+                        .addTo(map)
+                        .bindPopup(`
+                            <b>${province.provinsi_nama}</b><br>
+                            Jumlah Alumni: ${province.count}
+                        `);
+                    }
+                });
+    
+                const legend = L.control({ position: 'bottomright' });
+
+legend.onAdd = function (map) {
+    const div = L.DomUtil.create('div', 'info legend');
+    const grades = [0, 1, 2, 5, 10, 20, 50, 100];
+    let labels = ['<strong>Sebaran Alumni</strong><br>']; // Removed the title
+
+    // Reduced font sizes and margins
+    div.style.fontSize = '10px';
+    div.style.lineHeight = '12px';
+
+    // Removed extra spacing and padding
+    div.style.padding = '6px'; 
+
+    // Add legend items
+    for (let i = 0; i < grades.length; i++) {
+        const from = grades[i];
+        const to = grades[i + 1];
+
+        labels.push(
+            '<i style="background:' + getColor(from + 1) + '; width: 12px; height: 12px; display: inline-block; margin-right: 4px;"></i> ' +
+            from + (to ? '&ndash;' + to : '+')
+        );
+    }
+
+    div.innerHTML = labels.join('<br>');
+    div.style.backgroundColor = '#fff';
+    div.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)'; // Smaller shadow
+    div.style.borderRadius = '3px'; 
+
+    return div;
+};
+
+legend.addTo(map);
+                
+            })
+            .catch(error => console.error('Error fetching alumni data:', error));
+    </script>
+    
+    
+</body>
+</html>

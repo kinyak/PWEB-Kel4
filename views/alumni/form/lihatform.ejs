@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/stylesheets/output.css">
+        <link rel="stylesheet" href="/node_modules/apexcharts/dist/apexcharts.css">
+        <style type="text/css">
+        .apexcharts-tooltip.apexcharts-theme-light {
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+            }
+        </style>
+        <script src="/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    </head>
+    <body>
+        <%- include('../layout/dashboard') %>
+        <div class="max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
+            <% if (formulirAlumni.length > 0) { %>
+                <% formulirAlumni.forEach(alumni => { %>
+                    <div class="p-8">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-4">Data Formulir Alumni</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-700">Informasi Pribadi</h3>
+                                    <p class="text-gray-600"><span class="font-medium">Nama:</span> <%= alumni.nama %></p>
+                                    <p class="text-gray-600"><span class="font-medium">NIM:</span> <%= alumni.nim %></p>
+                                    <p class="text-gray-600"><span class="font-medium">Email:</span> <%= alumni.email %></p>
+                                    <p class="text-gray-600"><span class="font-medium">Nomor Kontak:</span> <%= alumni.nomorkontak %></p>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-700">Pendidikan</h3>
+                                    <p class="text-gray-600"><span class="font-medium">Angkatan Lulus:</span> <%= alumni.angkatanlulus %></p>
+                                    <p class="text-gray-600"><span class="font-medium">Fakultas:</span> <%= alumni.fakultas %></p>
+                                    <p class="text-gray-600"><span class="font-medium">Program Studi S1:</span> <%= alumni.prodi_s1 %></p>
+                                    <p class="text-gray-600"><span class="font-medium">Program Studi S2:</span> <%= alumni.prodi_s2 || 'N/A' %></p>
+                                    <p class="text-gray-600"><span class="font-medium">Program Studi S3:</span> <%= alumni.prodi_s3 || 'N/A' %></p>
+                                    <p class="text-gray-600"><span class="font-medium">Pendidikan Profesi:</span> <%= alumni.pend_profesi || 'N/A' %></p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-700">Pekerjaan</h3>
+                                    <p class="text-gray-600"><span class="font-medium">Tempat Bekerja:</span> <%= alumni.tempat_bekerja %></p>
+                                    <p class="text-gray-600"><span class="font-medium">Jabatan:</span> <%= alumni.jabatan %></p>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-700">Informasi Tambahan</h3>
+                                    <p class="text-gray-600"><span class="font-medium">Alamat Domisili:</span> <%= alumni.alamat_domis %></p>
+                                    <p class="text-gray-600"><span class="font-medium">Hobi:</span> <%= alumni.hobi %></p>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-700">Masukan/Saran</h3>
+                                    <p class="text-gray-600"><%= alumni.masukan_saran %></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="p-8 text-center">
+                    <p class="text-xl text-gray-600">No data found.</p>
+                </div>
+            <% } %>
+        </div>
+
+
+<% if (messages.error) { %>
+    <script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: '<%= messages.error %>'
+    });
+    </script>
+<% } %>
+</script>
+        <!-- JS PLUGINS -->
+<script src="/node_modules/preline/dist/index.js"></script>
+<!-- Apexcharts -->
+<script src="/node_modules/lodash/lodash.min.js"></script>
+<script src="/node_modules/apexcharts/dist/apexcharts.min.js"></script>
+
+<script src="https://preline.co/assets/js/hs-apexcharts-helpers.js"></script>
+
+<script>
+
+</script>
+    </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Surat Persetujuan Event</title>
+    <style>
+        /* (Your existing CSS styles here) */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .footer {
+            text-align: right;
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h3>SURAT PERSETUJUAN EVENT</h3>
+            <p>Nomor: <%= event.nomorSurat %></p>
+        </div>
+        <p>Yang bertanda tangan di bawah ini, <strong><%= event.penanggungJawab %></strong> selaku <strong><%= event.jabatan %></strong>, dengan ini memberikan persetujuan untuk pelaksanaan event sebagai berikut:</p>
+        <table>
+            <tr>
+                <td><strong>Nama Event</strong></td>
+                <td>:</td>
+                <td><%= event.form.judul %></td>
+            </tr>
+            <tr>
+                <td><strong>Deskripsi</strong></td>
+                <td>:</td>
+                <td><%= event.form.deskripsi %></td>
+            </tr>
+            <tr>
+                <td><strong>Tanggal Pelaksanaan</strong></td>
+                <td>:</td>
+                <td><%= event.form.tanggal_event %></td>
+            </tr>
+            <tr>
+                <td><strong>Lokasi</strong></td>
+                <td>:</td>
+                <td><%= event.lokasi %></td>
+            </tr>
+            <tr>
+                <td><strong>Penyelenggara</strong></td>
+                <td>:</td>
+                <td><%= event.alumni.name %></td>
+            </tr>
+        </table>
+        <p>Persetujuan ini diberikan dengan ketentuan bahwa penyelenggara event bertanggung jawab penuh atas segala aspek pelaksanaan dan mematuhi segala peraturan yang berlaku.</p>
+        <div class="footer">
+            <p><%= event.tempatSurat %>, <%= event.tanggalSurat %></p>
+            <p><strong><%= event.penanggungJawab %></strong></p>
+            <p><strong><%= event.jabatan %></strong></p>
+        </div>
+    </div>
+</body>
+</html>

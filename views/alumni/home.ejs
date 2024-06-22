@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/stylesheets/output.css">
+        <link rel="stylesheet" href="/node_modules/apexcharts/dist/apexcharts.css">
+        <style type="text/css">
+        .apexcharts-tooltip.apexcharts-theme-light {
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+            }
+        </style>
+    </head>
+    <body>
+        <%- include('layout/dashboard') %>
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8">Dashboard</h1>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Formulir Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <svg class="flex-shrink-0 w-6 h-6 text-blue-600 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm8 0h.01M17 7h.01M21 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" />
+                        </svg>
+                        <h2 class="text-xl font-semibold text-gray-800">Formulir</h2>
+                    </div>
+                    <ul class="space-y-2">
+                        <li><a href="/alumni/form/lihat" class="text-blue-600 hover:underline">Lihat Formulir</a></li>
+                        <li><a href="/alumni/form/upload" class="text-blue-600 hover:underline">Buat Formulir</a></li>
+                    </ul>
+                </div>
+    
+                <!-- Lowongan Pekerjaan Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <svg class="flex-shrink-0 w-6 h-6 text-green-600 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        <h2 class="text-xl font-semibold text-gray-800">Lowongan Pekerjaan</h2>
+                    </div>
+                    <a href="/alumni/lowongan/lihat" class="text-green-600 hover:underline">Lihat Lowongan</a>
+                </div>
+    
+                <!-- Pengajuan Event Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <svg class="flex-shrink-0 w-6 h-6 text-purple-600 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <h2 class="text-xl font-semibold text-gray-800">Pengajuan Event</h2>
+                    </div>
+                    <ul class="space-y-2">
+                        <li><a href="/alumni/event/create" class="text-purple-600 hover:underline">Buat Pengajuan Event</a></li>
+                        <li><a href="/alumni/event/" class="text-purple-600 hover:underline">Lihat Status Pengajuan Event</a></li>
+                    </ul>
+                </div>
+    
+                <!-- Akun Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <svg class="flex-shrink-0 w-6 h-6 text-yellow-600 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        <h2 class="text-xl font-semibold text-gray-800">Akun</h2>
+                    </div>
+                    <a href="/alumni/profile" class="text-yellow-600 hover:underline">Lihat Profil</a>
+                </div>
+            </div>
+        </div>
+        <!-- JS PLUGINS -->
+<script src="/node_modules/preline/dist/index.js"></script>
+<!-- Apexcharts -->
+<script src="/node_modules/lodash/lodash.min.js"></script>
+<script src="/node_modules/apexcharts/dist/apexcharts.min.js"></script>
+
+<script src="https://preline.co/assets/js/hs-apexcharts-helpers.js"></script>
+
+<script>
+window.addEventListener('load', () => {
+    (function () {
+    buildChart('#hs-multiple-bar-charts', (mode) => ({
+        chart: {
+        type: 'bar',
+        height: 300,
+        toolbar: {
+            show: false
+        },
+        zoom: {
+            enabled: false
+        }
+        },
+        series: [
+        {
+            name: 'Chosen Period',
+            data: [23000, 44000, 55000, 57000, 56000, 61000, 58000, 63000, 60000, 66000, 34000, 78000]
+        }, {
+            name: 'Last Period',
+            data: [17000, 76000, 85000, 101000, 98000, 87000, 105000, 91000, 114000, 94000, 67000, 66000]
+        }
+        ],
+        plotOptions: {
+        bar: {
+            horizontal: false,
+            columnWidth: '16px',
+            borderRadius: 0
+        }
+        },
+        legend: {
+        show: false
+        },
+        dataLabels: {
+        enabled: false
+        },
+        stroke: {
+        show: true,
+        width: 8,
+        colors: ['transparent']
+        },
+        xaxis: {
+        categories: [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+        ],
+        axisBorder: {
+            show: false
+        },
+        axisTicks: {
+            show: false
+        },
+        crosshairs: {
+            show: false
+        },
+        labels: {
+            style: {
+            colors: '#9ca3af',
+            fontSize: '13px',
+            fontFamily: 'Inter, ui-sans-serif',
+            fontWeight: 400
+            },
+            offsetX: -2,
+            formatter: (title) => title.slice(0, 3)
+        }
+        },
+        yaxis: {
+        labels: {
+            align: 'left',
+            minWidth: 0,
+            maxWidth: 140,
+            style: {
+            colors: '#9ca3af',
+            fontSize: '13px',
+            fontFamily: 'Inter, ui-sans-serif',
+            fontWeight: 400
+            },
+            formatter: (value) => value >= 1000 ? `${value / 1000}k` : value
+        }
+        },
+        states: {
+        hover: {
+            filter: {
+            type: 'darken',
+            value: 0.9
+            }
+        }
+        },
+        tooltip: {
+        y: {
+            formatter: (value) => `$${value >= 1000 ? `${value / 1000}k` : value}`
+        },
+        custom: function (props) {
+            const { categories } = props.ctx.opts.xaxis;
+            const { dataPointIndex } = props;
+            const title = categories[dataPointIndex];
+            const newTitle = `${title}`;
+
+            return buildTooltip(props, {
+            title: newTitle,
+            mode,
+            hasTextLabel: true,
+            wrapperExtClasses: 'min-w-28',
+            labelDivider: ':',
+            labelExtClasses: 'ms-2'
+            });
+        }
+        },
+        responsive: [{
+        breakpoint: 568,
+        options: {
+            chart: {
+            height: 300
+            },
+            plotOptions: {
+            bar: {
+                columnWidth: '14px'
+            }
+            },
+            stroke: {
+            width: 8
+            },
+            labels: {
+            style: {
+                colors: '#9ca3af',
+                fontSize: '11px',
+                fontFamily: 'Inter, ui-sans-serif',
+                fontWeight: 400
+            },
+            offsetX: -2,
+            formatter: (title) => title.slice(0, 3)
+            },
+            yaxis: {
+            labels: {
+                align: 'left',
+                minWidth: 0,
+                maxWidth: 140,
+                style: {
+                colors: '#9ca3af',
+                fontSize: '11px',
+                fontFamily: 'Inter, ui-sans-serif',
+                fontWeight: 400
+                },
+                formatter: (value) => value >= 1000 ? `${value / 1000}k` : value
+            }
+            },
+        },
+        }]
+    }), {
+        colors: ['#2563eb', '#d1d5db'],
+        grid: {
+        borderColor: '#e5e7eb'
+        }
+    }, {
+        colors: ['#6b7280', '#2563eb'],
+        grid: {
+        borderColor: '#374151'
+        }
+    });
+    })();
+});
+</script>
+
+<script>
+window.addEventListener('load', () => {
+    (function () {
+    buildChart('#hs-single-area-chart', (mode) => ({
+        chart: {
+        height: 300,
+        type: 'area',
+        toolbar: {
+            show: false
+        },
+        zoom: {
+            enabled: false
+        }
+        },
+        series: [
+        {
+            name: 'Visitors',
+            data: [180, 51, 60, 38, 88, 50, 40, 52, 88, 80, 60, 70]
+        }
+        ],
+        legend: {
+        show: false
+        },
+        dataLabels: {
+        enabled: false
+        },
+        stroke: {
+        curve: 'straight',
+        width: 2
+        },
+        grid: {
+        strokeDashArray: 2
+        },
+        fill: {
+        type: 'gradient',
+        gradient: {
+            type: 'vertical',
+            shadeIntensity: 1,
+            opacityFrom: 0.1,
+            opacityTo: 0.8
+        }
+        },
+        xaxis: {
+        type: 'category',
+        tickPlacement: 'on',
+        categories: [
+            '25 January 2023',
+            '26 January 2023',
+            '27 January 2023',
+            '28 January 2023',
+            '29 January 2023',
+            '30 January 2023',
+            '31 January 2023',
+            '1 February 2023',
+            '2 February 2023',
+            '3 February 2023',
+            '4 February 2023',
+            '5 February 2023'
+        ],
+        axisBorder: {
+            show: false
+        },
+        axisTicks: {
+            show: false
+        },
+        crosshairs: {
+            stroke: {
+            dashArray: 0
+            },
+            dropShadow: {
+            show: false
+            }
+        },
+        tooltip: {
+            enabled: false
+        },
+        labels: {
+            style: {
+            colors: '#9ca3af',
+            fontSize: '13px',
+            fontFamily: 'Inter, ui-sans-serif',
+            fontWeight: 400
+            },
+            formatter: (title) => {
+            let t = title;
+
+            if (t) {
+                const newT = t.split(' ');
+                t = `${newT[0]} ${newT[1].slice(0, 3)}`;
+            }
+
+            return t;
+            }
+        }
+        },
+        yaxis: {
+        labels: {
+            align: 'left',
+            minWidth: 0,
+            maxWidth: 140,
+            style: {
+            colors: '#9ca3af',
+            fontSize: '13px',
+            fontFamily: 'Inter, ui-sans-serif',
+            fontWeight: 400
+            },
+            formatter: (value) => value >= 1000 ? `${value / 1000}k` : value
+        }
+        },
+        tooltip: {
+        x: {
+            format: 'MMMM yyyy'
+        },
+        y: {
+            formatter: (value) => `${value >= 1000 ? `${value / 1000}k` : value}`
+        },
+        custom: function (props) {
+            const { categories } = props.ctx.opts.xaxis;
+            const { dataPointIndex } = props;
+            const title = categories[dataPointIndex].split(' ');
+            const newTitle = `${title[0]} ${title[1]}`;
+
+            return buildTooltip(props, {
+            title: newTitle,
+            mode,
+            valuePrefix: '',
+            hasTextLabel: true,
+            markerExtClasses: '!rounded-sm',
+            wrapperExtClasses: 'min-w-28'
+            });
+        }
+        },
+        responsive: [{
+        breakpoint: 568,
+        options: {
+            chart: {
+            height: 300
+            },
+            labels: {
+            style: {
+                colors: '#9ca3af',
+                fontSize: '11px',
+                fontFamily: 'Inter, ui-sans-serif',
+                fontWeight: 400
+            },
+            offsetX: -2,
+            formatter: (title) => title.slice(0, 3)
+            },
+            yaxis: {
+            labels: {
+                align: 'left',
+                minWidth: 0,
+                maxWidth: 140,
+                style: {
+                colors: '#9ca3af',
+                fontSize: '11px',
+                fontFamily: 'Inter, ui-sans-serif',
+                fontWeight: 400
+                },
+                formatter: (value) => value >= 1000 ? `${value / 1000}k` : value
+            }
+            },
+        },
+        }]
+    }), {
+        colors: ['#2563eb', '#9333ea'],
+        fill: {
+        gradient: {
+            stops: [0, 90, 100]
+        }
+        },
+        grid: {
+        borderColor: '#e5e7eb'
+        }
+    }, {
+        colors: ['#3b82f6', '#a855f7'],
+        fill: {
+        gradient: {
+            stops: [100, 90, 0]
+        }
+        },
+        grid: {
+        borderColor: '#374151'
+        }
+    });
+    })();
+});
+</script>
+
+<script>
+    
+</script>
+    </body>
+</html>

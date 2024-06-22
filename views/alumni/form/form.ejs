@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/stylesheets/output.css">
+        <link rel="stylesheet" href="/node_modules/apexcharts/dist/apexcharts.css">
+        <style type="text/css">
+        .apexcharts-tooltip.apexcharts-theme-light {
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+            }
+        </style>
+        <script src="/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    </head>
+    <body>
+        <%- include('../layout/dashboard') %>
+
+<!-- Card Section -->
+<div class="max-w-4xl px-4 py-10 sm:px-6 lg:px-8 mx-auto">
+    <!-- Card -->
+    <div class="bg-white rounded-xl shadow p-4 sm:p-7">
+    <div class="mb-8">
+        <h2 class="text-xl font-bold text-gray-800">
+        Formulir Alumni
+        </h2>
+        <p class="text-sm text-gray-600">
+        Silahkan isi formulir berikut dengan data yang valid.
+        </p>
+    </div>
+
+    <form action="/alumni/form/upload" method="post" >
+        <!-- Grid -->
+        <div class="grid sm:grid-cols-12 gap-2 sm:gap-6">
+        <div class="sm:col-span-3">
+            <label for="af-nama" class="inline-block text-sm text-gray-800 mt-2.5">
+            Nama
+            </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+            <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+                <button type="button" class="pr-tooltip-toggle w-full">
+                <input id="af-nama" name="nama" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Nama Lengkap" value="<%= oldData.nama ? oldData.nama : '' %>">
+                </button>
+                <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-3">
+            <label for="af-nim" class="inline-block text-sm text-gray-800 mt-2.5">
+            NIM
+            </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+            <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+                <button type="button" class="pr-tooltip-toggle w-full">
+                <input id="af-nim" name="nim" value="<%= oldData.nim ? oldData.nim : '' %>" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Nomor Induk Mahasiswa">
+                </button>
+                <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-3">
+            <label for="af-email" class="inline-block text-sm text-gray-800 mt-2.5">
+            Email
+            </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+            <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+                <button type="button" class="pr-tooltip-toggle w-full">
+                <input id="af-email" name="email" value="<%= oldData.email ? oldData.email : '' %>" type="email" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Email">
+                </button>
+                <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-3">
+            <label for="af-nomorkontak" class="inline-block text-sm text-gray-800 mt-2.5">
+            Nomor Kontak
+            </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+            <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+                <button type="button" class="pr-tooltip-toggle w-full">
+                <input id="af-nomorkontak" name="nomorkontak" value="<%= oldData.nomorkontak ? oldData.nomorkontak : '' %>" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Nomor Kontak">
+                </button>
+                <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-3">
+            <label for="af-angkatanlulus" class="inline-block text-sm text-gray-800 mt-2.5">
+            Angkatan Lulus
+            </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+            <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+                <button type="button" class="pr-tooltip-toggle w-full">
+                <input id="af-angkatanlulus" name="angkatanlulus" value="<%= oldData.angkatanlulus ? oldData.angkatanlulus : '' %>" type="number" min="1900" max="2099" step="1" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
+                </button>
+                <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-3">
+            <label for="af-prodi-s1" class="inline-block text-sm text-gray-800 mt-2.5">
+            Program Studi S1
+            </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+            <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+                <button type="button" class="pr-tooltip-toggle w-full">
+                <input id="af-prodi-s1" name="programstudis1" value="<%= oldData.programstudis1 ? oldData.programstudis1 : '' %>" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Program Studi S1">
+            </button>
+            <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+            </div>
+            </div>
+        </div>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-3">
+        <label for="af-prodi-s2" class="inline-block text-sm text-gray-800 mt-2.5">
+            Program Studi S2
+        </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+        <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+            <button type="button" class="pr-tooltip-toggle w-full">
+                <input id="af-prodi-s2" name="programstudis2" value="<%= oldData.programstudis2 ? oldData.programstudis2 : '' %>" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Program Studi S2">
+            </button>
+            <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+            </div>
+            </div>
+        </div>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-3">
+        <label for="af-prodi-s3" class="inline-block text-sm text-gray-800 mt-2.5">
+            Program Studi S3
+        </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+        <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+            <button type="button"  class="pr-tooltip-toggle w-full">
+                <input id="af-prodi-s3" name="programstudis3" value="<%= oldData.programstudis3 ? oldData.programstudis3 : '' %>" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Program Studi S3">
+            </button>
+            <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+            </div>
+            </div>
+        </div>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-3">
+        <label for="af-pend-profesi" class="inline-block text-sm text-gray-800 mt-2.5">
+            Pendidikan Profesi
+        </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+        <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+            <button type="button" class="pr-tooltip-toggle w-full">
+                <input id="af-pend-profesi" name="pendprofesi" value="<%= oldData.pendprofesi ? oldData.pendprofesi : '' %>" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Pendidikan Profesi">
+            </button>
+            <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+            </div>
+            </div>
+        </div>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-3">
+        <label for="af-waktu-tunggu" class="inline-block text-sm text-gray-800 mt-2.5">
+            Waktu Tunggu Sebelum Bekerja (Dalam bulan)
+        </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+        <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+            <button type="button" class="pr-tooltip-toggle w-full">
+                <input id="af-waktu-tunggu" name="waktu_tunggu" value="<%= oldData.waktu_tunggu ? oldData.waktu_tunggu : '' %>" type="number" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Fakultas">
+            </button>
+            <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+            </div>
+            </div>
+        </div>
+        </div>
+        <!-- End Col -->
+        <div class="sm:col-span-3">
+            <label for="dropdown-prov" class="inline-block text-sm text-gray-800 mt-2.5">
+                Provinsi Tempat Bekerja
+            </label>
+            </div>
+        <div class="sm:col-span-9">
+            <div class="pr-tooltip inline-block relative w-full">
+                <select name="provinsi" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" id="dropdown-prov">
+                    <option value="" disabled selected>Pilih provinsi</option>
+                    <% provinsi.forEach(function(provinsi) { %>
+                        <option value="<%= provinsi.nama %>"><%= provinsi.nama%></option>
+                    <% }) %>
+                </select>
+            </div>
+            
+        </div>
+        
+
+        <div class="sm:col-span-3">
+        <label for="af-tempat-bekerja" class="inline-block text-sm text-gray-800 mt-2.5">
+            Tempat Bekerja
+        </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+        <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+            <button type="button"  class="pr-tooltip-toggle w-full">
+                <input id="af-tempat-bekerja" name="tempatbekerja" value="<%= oldData.tempatbekerja ? oldData.tempatbekerja : '' %>" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Tempat Bekerja">
+            </button>
+            <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+            </div>
+            </div>
+        </div>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-3">
+        <label for="af-jabatan" class="inline-block text-sm text-gray-800 mt-2.5">
+            Jabatan
+        </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+        <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+            <button type="button" class="pr-tooltip-toggle w-full">
+                <input id="af-jabatan" name="jabatan" value="<%= oldData.jabatan ? oldData.jabatan : '' %>" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Jabatan">
+            </button>
+            <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+            </div>
+            </div>
+        </div>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-3">
+        <label for="af-alamat-domis" class="inline-block text-sm text-gray-800 mt-2.5">
+            Alamat Domisili
+        </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+        <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+            <button type="button" class="pr-tooltip-toggle w-full">
+                <input id="af-alamat-domis" name="domisili" value="<%= oldData.domisili ? oldData.domisili : '' %>" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Alamat Domisili">
+            </button>
+            <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+            </div>
+            </div>
+        </div>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-3">
+        <label for="af-hobi" class="inline-block text-sm text-gray-800 mt-2.5">
+            Hobi
+        </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+        <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+            <button type="button" class="pr-tooltip-toggle w-full">
+                <input id="af-hobi" name="hobi" value="<%= oldData.hobi ? oldData.hobi : '' %>" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Hobi">
+            </button>
+            <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+            </div>
+            </div>
+        </div>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-3">
+        <label for="af-masukan-saran" class="inline-block text-sm text-gray-800 mt-2.5">
+            Masukan/Saran
+        </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+        <div class="mb-3">
+            <div class="pr-tooltip inline-block relative w-full">
+            <button type="button" class="pr-tooltip-toggle w-full">
+                <textarea id="af-masukan-saran" name="masukansaran" value="<%= oldData.masukansaran ? oldData.masukansaran : '' %>" class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none" rows="6" placeholder="Masukan/Saran"></textarea>
+            </button>
+            <div class="pr-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-2 px-3 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm">
+                Tooltip content here
+            </div>
+            </div>
+        </div>
+        </div>
+        <!-- End Col -->
+    </div>
+    <!-- End Grid -->
+
+    <div class="mt-5 flex justify-end gap-x-2">
+        <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
+        Cancel
+        </button>
+        <button type="submit" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none">
+        Submit
+        </button>
+    </div>
+    </form>
+</div>
+<!-- End Card -->
+</div>
+<!-- End Card Section -->
+
+<% if (messages.error) { %>
+    <script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: '<%= messages.error %>'
+    });
+    </script>
+<% } %>
+        <!-- JS PLUGINS -->
+<script src="/node_modules/preline/dist/index.js"></script>
+<!-- Apexcharts -->
+<script src="/node_modules/lodash/lodash.min.js"></script>
+<script src="/node_modules/apexcharts/dist/apexcharts.min.js"></script>
+
+<script src="https://preline.co/assets/js/hs-apexcharts-helpers.js"></script>
+
+<script>
+
+</script>
+    </body>
+</html>

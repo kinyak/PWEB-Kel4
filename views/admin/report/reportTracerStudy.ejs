@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/stylesheets/output.css">
+        <style>
+            .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <%- include('../layout/dashboard') %>
+
+        <div class="max-w-full px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+            <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
+            <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Statistik Tracer Study FTI UNAND</h2>
+            <p class="mt-1 text-gray-600 dark:text-gray-400">Metrik utama dari studi penelusuran alumni FTI</p>
+            </div>
+        
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <!-- Total Alumni Card -->
+            <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-800">
+                <div class="p-4 md:p-5">
+                <h3 class="text-lg font-bold text-gray-800 dark:text-white">Total Alumni</h3>
+                <p class="mt-2 text-3xl font-bold text-blue-500"><%= totalAlumni %></p>
+                </div>
+            </div>
+
+        
+            <!-- Employment Status Chart -->
+                <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-800 sm:col-span-2">
+                    <div class="p-4 md:p-5">
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Perusahaan Tempat Bekerja</h3>
+                    <div class="chart-container">
+                        <canvas id="employmentChart" class="mt-4" style="height: 200px;"></canvas>
+                    </div>
+                    </div>
+                </div>
+        
+                <!-- Average Time to Job Card -->
+                <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-800">
+                    <div class="p-4 md:p-5">
+                        <h3 class="text-lg font-bold text-gray-800 dark:text-white">Rata-rata waktu yang dibutuhkan untuk mendapatkan pekerjaan pertama</h3>
+                        <p class="mt-2 text-3xl font-bold text-green-500">
+                        <%= typeof avgTimeToJob === 'number' ? avgTimeToJob.toFixed(1) : 'N/A' %> 
+                        <%= typeof avgTimeToJob === 'number' ? 'Bulan' : '' %>
+                        </p>
+                    </div>
+                    </div>
+            </div>
+        </div>
+        
+        <!-- Include Chart.js and Indonesia map plugin -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-geo@3.7.1/build/index.umd.min.js"></script>
+        
+            <script>
+                // Data passed from server-side
+                var employmentStatusData = JSON.parse('<%- JSON.stringify(employmentStatus) %>');
+                var alumniByProvinceData = JSON.parse('<%- JSON.stringify(alumniByProvince) %>');
+            
+                document.addEventListener('DOMContentLoaded', function() {
+                console.log('DOM fully loaded and parsed');
+            
+                const chartElement = document.getElementById('employmentChart');
+                console.log('Chart element:', chartElement);
+            
+                if (chartElement && chartElement instanceof HTMLCanvasElement) {
+                    console.log('Chart element is a canvas');
+                    const employmentCtx = chartElement.getContext('2d');
+            
+                    new Chart(employmentCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: employmentStatusData.map(status => status.tempat_bekerja || 'Unknown'),
+                        datasets: [{
+                        data: employmentStatusData.map(status => status.count),
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                    });
+                } else {
+                    console.error('Chart element not found or not a canvas element');
+                }
+            
+                // Alumni by Province Map
+                console.log('Alumni by Province data:', alumniByProvinceData);
+                });
+            </script>
+                        <!-- JS PLUGINS -->
+<script src="/node_modules/preline/dist/index.js"></script>
+<!-- Apexcharts -->
+
+    </body>
+</html>

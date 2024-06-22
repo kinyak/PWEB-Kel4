@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ubah Artikel</title>
+</head>
+<body>
+
+    
+    <h1>Events by Alumni</h1>
+    <table>
+    <thead>
+        <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Event Date</th>
+        <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% events.forEach(event => { %>
+            <tr>
+                <td><%= event.judul %></td>
+                <td><%= event.deskripsi %></td>
+                <td><%= event.tanggal_event %></td>
+                <td>
+                    <% event.pengajuan_events.forEach(pengajuanEvent => { %>
+                        <%= pengajuanEvent.status %><br>
+                    <% }) %>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{
+  "name": "alumnifti",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"node ./bin/www\" \"npx tailwindcss -i ./public/stylesheets/style.css -o ./public/stylesheets/output.css --watch\"",
+    "dev": "concurrently \"nodemon ./bin/www\" \"npx tailwindcss -i ./public/stylesheets/style.css -o ./public/stylesheets/output.css --watch\""
+  },
+  "dependencies": {
+    "@preline/remove-element": "^2.3.0",
+    "apexcharts": "^3.49.1",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "connect-session-sequelize": "^7.1.7",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "env": "^0.0.2",
+    "exceljs": "^4.4.0",
+    "express": "^4.19.2",
+    "express-flash": "^0.0.2",
+    "express-flash-message": "^3.0.2",
+    "express-mysql-session": "^2.1.8",
+    "express-session": "^1.18.0",
+    "express-validator": "^7.1.0",
+    "flowbite": "^2.3.0",
+    "http-errors": "~1.6.3",
+    "jsonwebtoken": "^9.0.2",
+    "leaflet": "^1.9.4",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.9.7",
+    "nodemon": "^3.1.0",
+    "preline": "^2.1.0",
+    "puppeteer": "^22.11.2",
+    "sequelize": "^6.37.3",
+    "sweetalert2": "^11.6.13",
+    "tinymce": "^7.1.2"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.13",
+    "concurrently": "^8.2.2",
+    "sequelize-cli": "^6.6.2",
+    "tailwindcss": "^3.4.3"
+  }
+}

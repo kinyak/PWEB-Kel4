@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tambah Artikel</title>
+</head>
+<body>
+    <h1>Create New Event</h1>
+    <form action="/events" method="POST">
+    <div>
+        <label for="judul">Title:</label>
+        <input type="text" id="judul" name="judul" required>
+    </div>
+    <div>
+        <label for="deskripsi">Description:</label>
+        <textarea id="deskripsi" name="deskripsi" required></textarea>
+    </div>
+    <div>
+        <label for="tanggalMulai">Start Date:</label>
+        <input type="date" id="tanggalMulai" name="tanggalMulai" required>
+    </div>
+    <div>
+        <label for="tanggalAkhir">End Date:</label>
+        <input type="date" id="tanggalAkhir" name="tanggalAkhir" required>
+    </div>
+    <input type="hidden" name="alumniId" value="<%= alumniId %>">
+    <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

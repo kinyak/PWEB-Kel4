@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Artikel</title>
+    <link rel="stylesheet" href="/stylesheets/output.css">
+    <style>
+        .tox-promotion {
+            display: none !important;
+        }
+        .img-preview {
+            max-width: 300px;
+            max-height: 300px;
+            display: none;
+        }
+    </style>
+    <script src="/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+    <%- include('../layout/dashboard') %>
+    <!-- Card Section -->
+    <div class="max-w-4xl px-4 py-10 sm:px-6 lg:px-8 mx-auto">
+        <!-- Card -->
+        <div class="bg-white rounded-xl shadow p-4 sm:p-7">
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-gray-800">Edit Artikel</h2>
+                <p class="text-sm text-gray-600"></p>
+            </div>
+            <form id="articleForm" action="/admin/artikel/update/<%= artikel.id %>" method="POST">
+                <!-- Grid -->
+                <div class="grid sm:grid-cols-12 gap-2 sm:gap-6">
+                    <div class="sm:col-span-3">
+                        <label for="judul" class="inline-block text-sm text-gray-800 mt-2.5">Judul:</label>
+                    </div>
+                    <div class="sm:col-span-9">
+                        <input
+                            id="judul"
+                            name="judul"
+                            type="text"
+                            class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none"
+                            required
+                            value="<%= artikel.judul %>"
+                        />
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="konten" class="inline-block text-sm text-gray-800 mt-2.5">Konten:</label>
+                    </div>
+                    <div class="sm:col-span-9">
+                        <textarea
+                            id="mce_0"
+                            name="konten"
+                        ><%= artikel.konten %></textarea>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="kategori" class="inline-block text-sm text-gray-800 mt-2.5">Kategori:</label>
+                    </div>
+                    <div class="sm:col-span-9">
+                        <input
+                            id="kategori"
+                            name="kategori"
+                            type="text"
+                            class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none"
+                            required
+                            value="<%= artikel.kategori %>"
+                        />
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="admin_id" class="inline-block text-sm text-gray-800 mt-2.5">Admin:</label>
+                    </div>
+                    <div class="sm:col-span-9">
+                        <select name="admin_id" required class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
+                            <% admins.forEach(function(admin) { %>
+                                <option value="<%= admin.id %>" <%= artikel.admin_id === admin.id ? 'selected' : '' %>><%= admin.email %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div>
+                <!-- End Grid -->
+
+                <div class="mt-5 flex justify-end gap-x-2">
+                    <button type="submit" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none">
+                        Update
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- End Card -->
+    </div>
+    <!-- End Card Section -->
+
+    <script>
+        function previewImage() {
+            const input = document.getElementById('gambar');
+            const preview = document.querySelector('.img-preview');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+    <% if (messages.error) { %>
+        <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '<%= messages.error %>'
+        });
+        </script>
+    <% } %>
+
+    <script src="/node_modules/preline/dist/index.js"></script>
+    <script type="application/javascript" src="/tinymce/tinymce.min.js"></script>
+    <script type="application/javascript" src="/javascripts/my-tinymce-config.js"></script>
+</body>
+</html>

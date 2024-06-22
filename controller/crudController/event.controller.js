@@ -250,9 +250,7 @@ exports.generatepdf = async (req, res) => {
         const event = await fetchEventFromDatabase(req, eventId);
     
     
-        const browser = await puppeteer.launch({
-            executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', 
-        });
+        const browser = await puppeteer.launch();
         const page = await browser.newPage();
         event.nomorSurat = faker.string.alphanumeric(10);          
         event.penanggungJawab = faker.person.fullName(); 

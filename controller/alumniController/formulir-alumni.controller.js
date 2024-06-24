@@ -202,7 +202,7 @@ exports.deleteFormulirAlumni = async (req, res) => {
 
 
         console.log(alumniIdsToDelete)
-        // 2. Perform the Deletion
+
         const deletedCount = await FormulirAlumni.destroy({
             where: { id: alumniIdsToDelete} 
         });

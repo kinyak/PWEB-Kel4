@@ -9,7 +9,7 @@ const selectAllCheckbox = document.getElementById('selectAllCheckbox');
                             
                                 alumniCheckboxes.forEach(checkbox => {
                                     checkbox.addEventListener('change', () => {
-                                        // Update the "Select All" checkbox if all alumni checkboxes are checked or unchecked
+                                        
                                         const allChecked = Array.from(alumniCheckboxes).every(cb => cb.checked);
                                         const noneChecked = Array.from(alumniCheckboxes).every(cb => !cb.checked);
                             
@@ -22,7 +22,7 @@ const selectAllCheckbox = document.getElementById('selectAllCheckbox');
                                 checkboxes.forEach((checkbox) => {
                                     checkbox.addEventListener('change', () => {
                                         console.log(`Checkbox ${checkbox.id} is ${checkbox.checked}`);
-                                        // Add your logic here to perform actions based on the checkbox state
+                                        
                                     });
                                 });
                             
@@ -33,7 +33,7 @@ const selectAllCheckbox = document.getElementById('selectAllCheckbox');
                                     const selectedCheckboxes = Array.from(document.querySelectorAll('.alumniCheckbox:checked'));
                                     const alumniIdsToDelete = selectedCheckboxes.map(checkbox => {
                                         const idParts = checkbox.id.split('-');
-                                        const alumniId = idParts[idParts.length - 1]; // Assuming the alumni ID is the last part of the checkbox ID
+                                        const alumniId = idParts[idParts.length - 1]; 
                                         return alumniId;
                                     });
                                     if (alumniIdsToDelete.length === 0) {
@@ -74,7 +74,7 @@ const selectAllCheckbox = document.getElementById('selectAllCheckbox');
                                                     Swal.fire({
                                                         icon: data.message ? 'error' : 'success',
                                                         title: data.message || 'Formulir berhasil dihapus!',
-                                                        text: data.message && data.error ? data.error : '', // Optional: Display additional error details
+                                                        text: data.message && data.error ? data.error : '', 
                                                         confirmButtonText: 'OK'
                                                     });
                                                     

@@ -95,24 +95,6 @@ try {
 }
 };
 
-
-const ubahArtikel = async (req, res) => {
-try {
-    const { judul, konten, gambar, kategori, admin_id } = req.body;
-    const artikel = await Artikel.findByPk(req.params.id);
-    artikel.judul = judul;
-    artikel.konten = konten;
-    artikel.gambar = gambar;
-    artikel.kategori = kategori;
-    artikel.admin_id = admin_id;
-    await artikel.save();
-    res.redirect('/admin/artikel');
-} catch (err) {
-    console.error(err);
-    res.status(500).send('Terjadi kesalahan server');
-}
-};
-
 const hapusArtikel = async (req, res) => {
     try {
     const { alumniIds } = req.body;
@@ -188,7 +170,6 @@ module.exports = {
     renderTambahArtikel,
     tambahArtikel,
     renderUbahArtikel,
-    ubahArtikel,
     hapusArtikel,
     uploadPhoto,
     editArtikel,

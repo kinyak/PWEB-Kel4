@@ -12,13 +12,13 @@ const PeriodeTracerStudy = db.periode_tracer_study;
 
 router.get('/tracerstudy', async (req, res) => {
     try {
-        // Get total number of alumni who filled the form
+    
         const totalAlumni = await DetailFormulir.count({
         distinct: true,
         col: 'alumni_id'
         });
     
-        // Get employment status
+        
         const employmentStatus = await FormulirAlumni.findAll({
         attributes: [
             'tempat_bekerja',
@@ -27,7 +27,7 @@ router.get('/tracerstudy', async (req, res) => {
         group: ['tempat_bekerja']
         });
     
-            // Get average time to get first job (assuming we have a 'waktu_tunggu' field)
+    
                 const avgTimeToJob = await FormulirAlumni.findOne({
                     attributes: [
                     [Sequelize.fn('AVG', Sequelize.col('waktu_tunggu')), 'avgTime']
@@ -37,7 +37,7 @@ router.get('/tracerstudy', async (req, res) => {
 
                 const avgTimeToJobValue = avgTimeToJob && avgTimeToJob.avgTime ? parseFloat(avgTimeToJob.avgTime) : null;
     
-        // Get distribution of alumni by province
+        
         const alumniByProvince = await FormulirAlumni.findAll({
         attributes: [
             'provinsi_nama',
@@ -62,15 +62,15 @@ router.get('/tracerstudy', async (req, res) => {
 
 router.get('/website', async (req, res) => {
     try {
-        // Verify that Session model exists
+        
         if (!Session) {
             throw new Error('Session model is not defined');
         }
 
-        // Get total session count
+        
         const totalSessions = await Session.count();
 
-        // Get active sessions (not expired)
+        
         const activeSessions = await Session.count({
             where: {
                 expires: {
@@ -79,7 +79,7 @@ router.get('/website', async (req, res) => {
             }
         });
 
-      // Get user type distribution
+    
 const adminSessions = await Session.count({
     where: Sequelize.literal("JSON_EXTRACT(`data`, '$.user.roleId') = 1")
 });
@@ -87,7 +87,7 @@ const adminSessions = await Session.count({
 const alumniSessions = await Session.count({
     where: Sequelize.literal("JSON_EXTRACT(`data`, '$.user.roleId') = 2")
 });
-        // Get sessions created in the last 24 hours
+        
         const recentSessions = await Session.count({
             where: {
                 createdAt: {

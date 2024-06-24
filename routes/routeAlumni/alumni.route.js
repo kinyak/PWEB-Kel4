@@ -4,7 +4,7 @@ const controllerAlumni = require('../../controller/autentikasiController/authAlu
 const isAuthorized = require('../../middleware/auth/isauthorizedAlumni.middleware');
 const db = require('../../models');
 const Artikel = db.artikel;
-// router.use(role('mahasiswa'));
+
 
 
 
@@ -26,13 +26,13 @@ router.get('/blog', async (req, res) => {
       limit: 10
     });
 
-    // Sanitize the articles data
+
     const sanitizedArticles = articles.map(article => ({
       id: article.id,
       judul: article.judul || 'Untitled',
       konten: article.konten || null,
       gambar: article.gambar || null,
-      // Add any other fields you're using
+      
     }));
 
     res.render('artikel', { articles: sanitizedArticles });

@@ -143,7 +143,6 @@ module.exports = {
     const provinsiIds = await queryInterface.sequelize.query(
       "SELECT nama FROM provinsi;"
     );
-    console.log(provinsiIds)
     const unicornCompanies = [
       "GoTo",
       "Bukalapak",
@@ -161,7 +160,7 @@ module.exports = {
       nim: alumni[index].nim,
       nomorkontak: faker.phone.number(),
       email: alumni[index].email,
-      angkatanlulus: faker.date.past(),
+      angkatanlulus: faker.helpers.arrayElement([2020, 2019, 2018, 2017]),
       waktu_tunggu: faker.number.int({ min: 0, max: 24 }),
       prodi_s1: faker.helpers.arrayElement(['Sistem Informasi', 'Teknik Komputer', 'Teknik Informatika']),
       prodi_s2: faker.helpers.arrayElement([null, 'Magister Sistem Informasi', 'Magister Teknik Informatika']),
@@ -188,7 +187,7 @@ module.exports = {
       admin_id: faker.number.int({ min: 1, max: 3 })
     }));
     await queryInterface.bulkInsert('periode_tracer_study', tracerStudyPeriodscustom, {});
-    // Seed tracer study periods
+    
     const tracerStudyPeriods = Array.from({ length: 3 }, () => ({
       nama_periode: `Tracer Study ${faker.date.month()} ${faker.date.future().getFullYear()}`,
       keterangan: faker.lorem.sentence(),
@@ -200,7 +199,7 @@ module.exports = {
     }));
     await queryInterface.bulkInsert('periode_tracer_study', tracerStudyPeriods, {});
 
-    // Seed detail forms
+    
     const detailForms = alumniForm.map((form, index) => ({
       alumni_id: index + 1,
       formulir_id: index + 1,
@@ -208,7 +207,7 @@ module.exports = {
     }));
     await queryInterface.bulkInsert('detail_formulir', detailForms, {});
 
-    // Seed event proposal forms
+    
     const eventProposals = Array.from({ length: 10 }, () => ({
       judul: faker.lorem.words(3),
       deskripsi: faker.lorem.paragraph(),
@@ -228,7 +227,7 @@ module.exports = {
     }));
     await queryInterface.bulkInsert('pengajuan_event', eventProposalStatussiAsep, {});
 
-    // Seed reports
+    
     const reports = Array.from({ length: 5 }, () => ({
       judul: `Laporan ${faker.word.sample()} ${faker.date.past().getFullYear()}`,
       konten: faker.lorem.paragraphs(),

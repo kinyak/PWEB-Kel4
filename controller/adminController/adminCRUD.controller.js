@@ -53,7 +53,7 @@ const updatephotoProfile = async (req, res) => {
 };
 
 const uploadPhoto = (req, res, next) => {
-    upload.single('profilePicture')(req, res, (err) => {
+    upload.single('gambar')(req, res, (err) => {
         if (err instanceof multer.MulterError) {
             if (err.code === 'LIMIT_FILE_SIZE') {
                 return res.status(400).json({ error: 'File size is too large. Max limit is 5MB' });
@@ -96,38 +96,41 @@ const getAllAlumni = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
     }
 };
-
 const createAlumni = async (req, res) => {
     try {
-        const { nim, email, name, password } = req.body; 
+        const { nim, email, name, password } = req.body;
         const gambar = req.file;
 
         if (!email) {
             return res.status(400).json({ error: 'Email is required' });
         }
 
-
         const existingAlumni = await Alumni.findOne({ where: { email } });
         if (existingAlumni) {
             return res.status(400).json({ error: 'Email already exists' });
         }
 
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        const hashedPassword = await bcrypt.hash(password, 10); 
+        let gambarPath = null;
+        if (gambar) {
+            
+            gambarPath = `/images/alumni/${gambar.filename}`;
+        }
 
         const newAlumni = await Alumni.create({
             nim,
             email,
             name,
-            password: hashedPassword, 
+            password: hashedPassword,
             roleId: 2,
-            gambar: gambar ? gambar.filename : null,
+            gambar: gambarPath,
         });
 
-        return res.redirect('/admin/lihat/alumni')
+        return res.redirect('/admin/lihat/alumni');
     } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
@@ -141,7 +144,7 @@ const deleteAlumni = async (req, res) => {
             return res.status(400).json({ error: 'Invalid alumni IDs provided for deletion.' });
         }
 
-        // 2. Perform the Deletion
+    
         const deletedCount = await Alumni.destroy({
             where: { id: alumniIdsToDelete } 
         });

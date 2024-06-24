@@ -4,10 +4,6 @@ const controller = require('../../controller/autentikasiController/authAdmin.con
 const isAuthorized = require('../../middleware/auth/isauthorizedAdmin.middleware');
 
 
-
-
-// router.use(verifyToken);
-
 router.get('/dashboard',isAuthorized,controller.renderDashboard);
 
 router.get('/profile', isAuthorized, (req, res, next) => {

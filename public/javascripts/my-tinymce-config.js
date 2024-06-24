@@ -7,12 +7,11 @@ tinymce.init({
         toolbar: 'undo redo | blocks | ' + 'bold italic backcolor | alignleft aligncenter ' + 'alignright alignjustify | bullist numlist outdent indent | ' + 'removeformat | help',
     });
 
-// Get the form element
+
 const form = document.getElementById('articleForm');
 
-// Add an event listener for the form submission
+
 form.addEventListener('submit', function(event) {
-    // Trigger the save event for TinyMCE
     tinymce.triggerSave();
 });
 

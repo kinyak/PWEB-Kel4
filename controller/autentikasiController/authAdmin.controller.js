@@ -18,7 +18,7 @@ const { Op } = Sequelize;
 
 const form = (req, res) => {
   if (req.session.user) {
-    // If the user has a session, redirect to the appropriate page
+  
     if (req.session.user.roleId === 1) {
       return res.redirect("/admin/dashboard");
     } else if (req.session.user.roleId === 2) {
@@ -45,7 +45,7 @@ const checklogin = async (req, res) => {
       
       
       if (isValidPassword == true) {
-          // Store user data in the session
+          
           req.session.user = {
             id: foundUser.id,
             email: foundUser.email,
@@ -72,13 +72,13 @@ const checklogin = async (req, res) => {
 };
 
 function logout(req, res) {
-  // Destroy the session
+  
   req.session.destroy((err) => {
     if (err) {
       console.error('Error ketika logout:', err);
       return res.status(500).json({ message: 'Internal server error' });
     }
-    // Redirect to the login page
+    
     return res.redirect('/auth/login/admin');
   });
 }
@@ -93,7 +93,7 @@ const getProfile = async (req, res, next, user) => {
       return res.render('admin/profile', { title: 'Unauthorized', messages: req.flash() });
     }
 
-    // Fetch user data based on the email or id from the session
+    
     const foundUser = await Admin.findOne({ where: { email } });
 
     if (!foundUser) {
@@ -103,7 +103,7 @@ const getProfile = async (req, res, next, user) => {
 
     const filepath = foundUser.gambar;
 
-    // Render the profile view and pass the required data
+    
     return res.render('admin/profile', {
       userID: id,
       path: filepath,

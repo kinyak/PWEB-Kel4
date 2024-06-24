@@ -24,7 +24,7 @@ try {
     alumni_id: alumniId,
     pengajuan_event_id: formPengajuanEvent.id,
     });
-    res.redirect('/alumni/event/create')
+    res.redirect('/alumni/event/')
 } catch (err) {
     res.status(400).json({ error: err.message });
 }
@@ -42,7 +42,7 @@ exports.getEventsByAlumni = async (req, res) => {
     try {
         const alumniId = req.session.user.id;
 
-    const { page = 1, limit = 10 } = req.query; // Get the current page and limit from the query parameters, or use default values
+    const { page = 1, limit = 10 } = req.query; 
     const offset = (page - 1) * limit; 
 
     const { count, rows } = await PengajuanEvent.findAndCountAll({

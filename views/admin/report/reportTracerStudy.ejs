@@ -26,7 +26,6 @@
             </div>
         
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <!-- Total Alumni Card -->
             <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-800">
                 <div class="p-4 md:p-5">
                 <h3 class="text-lg font-bold text-gray-800 dark:text-white">Total Alumni</h3>
@@ -35,7 +34,6 @@
             </div>
 
         
-            <!-- Employment Status Chart -->
                 <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-800 sm:col-span-2">
                     <div class="p-4 md:p-5">
                     <h3 class="text-lg font-bold text-gray-800 dark:text-white">Perusahaan Tempat Bekerja</h3>
@@ -45,7 +43,6 @@
                     </div>
                 </div>
         
-                <!-- Average Time to Job Card -->
                 <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-800">
                     <div class="p-4 md:p-5">
                         <h3 class="text-lg font-bold text-gray-800 dark:text-white">Rata-rata waktu yang dibutuhkan untuk mendapatkan pekerjaan pertama</h3>
@@ -58,12 +55,10 @@
             </div>
         </div>
         
-        <!-- Include Chart.js and Indonesia map plugin -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-geo@3.7.1/build/index.umd.min.js"></script>
         
             <script>
-                // Data passed from server-side
                 var employmentStatusData = JSON.parse('<%- JSON.stringify(employmentStatus) %>');
                 var alumniByProvinceData = JSON.parse('<%- JSON.stringify(alumniByProvince) %>');
             
@@ -95,11 +90,9 @@
                     console.error('Chart element not found or not a canvas element');
                 }
             
-                // Alumni by Province Map
                 console.log('Alumni by Province data:', alumniByProvinceData);
                 });
             </script>
-                        <!-- JS PLUGINS -->
 <script src="/node_modules/preline/dist/index.js"></script>
 <!-- Apexcharts -->
 

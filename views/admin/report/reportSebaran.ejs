@@ -68,7 +68,7 @@
                 count > 2   ? '#FEB24C' :
                 count > 1   ? '#FED976' :
                 count == 1  ? '#FFEDA0' :
-                                '#FFFFFF';  // White for zero count
+                                '#FFFFFF';  
         }
     
         fetch('/admin/report/getsebaranalumni')
@@ -100,16 +100,16 @@
 legend.onAdd = function (map) {
     const div = L.DomUtil.create('div', 'info legend');
     const grades = [0, 1, 2, 5, 10, 20, 50, 100];
-    let labels = ['<strong>Sebaran Alumni</strong><br>']; // Removed the title
+    let labels = ['<strong>Sebaran Alumni</strong><br>']; 
 
-    // Reduced font sizes and margins
+
     div.style.fontSize = '10px';
     div.style.lineHeight = '12px';
 
-    // Removed extra spacing and padding
+
     div.style.padding = '6px'; 
 
-    // Add legend items
+    
     for (let i = 0; i < grades.length; i++) {
         const from = grades[i];
         const to = grades[i + 1];
@@ -122,7 +122,7 @@ legend.onAdd = function (map) {
 
     div.innerHTML = labels.join('<br>');
     div.style.backgroundColor = '#fff';
-    div.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)'; // Smaller shadow
+    div.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)'; 
     div.style.borderRadius = '3px'; 
 
     return div;

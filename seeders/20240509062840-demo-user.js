@@ -5,13 +5,11 @@ const { faker } = require('@faker-js/faker');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    // Seed roles
     await queryInterface.bulkInsert('role', [
       { id: 1, role: 'admin' },
       { id: 2, role: 'alumni' },
     ], {});
 
-    // Seed admins
     const adminRole = await queryInterface.rawSelect('role', { where: { id: 1 } }, ['id']);
     await queryInterface.bulkInsert('admin', [
       {
@@ -45,7 +43,6 @@ module.exports = {
       }
     ], {});
 
-    // Seed alumni
     const alumniRole = await queryInterface.rawSelect('role', { where: { id: 2 } }, ['id']);
     await queryInterface.bulkInsert('alumni', [
       {
@@ -74,7 +71,6 @@ module.exports = {
     await queryInterface.bulkInsert('alumni', alumni, {});
     
 
-    // Seed articles
     const articles = Array.from({ length: 10 }, () => ({
       judul: faker.lorem.sentence(),
       konten: faker.lorem.paragraphs(),
@@ -86,7 +82,6 @@ module.exports = {
     }));
     await queryInterface.bulkInsert('artikel', articles, {});
 
-    // Seed job vacancies
     const jobVacancies = Array.from({ length: 15 }, () => ({
       judul: faker.person.jobTitle(),
       deskripsi: faker.lorem.paragraph(),

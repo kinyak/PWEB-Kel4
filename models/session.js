@@ -1,21 +1,20 @@
-// Inside your models folder (usually models/session.js)
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    const Session = sequelize.define('sessions', {  // Note: lowercase 'session' is conventional
+    const Session = sequelize.define('sessions', {  
         sid: {
             type: DataTypes.STRING,
             primaryKey: true,
         },
         userId: {
             type: DataTypes.STRING,
-            allowNull: false, // Assuming sessions always belong to a user
+            allowNull: false, 
         },
         expires: {
             type: DataTypes.DATE,
             allowNull: false,
         },
-        data: DataTypes.TEXT, // Store session data here
+        data: DataTypes.TEXT, 
     });
     return Session;
 };
